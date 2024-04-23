@@ -25,7 +25,7 @@ def download_data(project_name, tag, root):
 if __name__ == "__main__":
     # Load environment variables from the .env file
     load_dotenv()
-    wandb.login(key=os.environ["WANDB"])
+    wandb.login(key=os.environ["WANDB_KEY"])
 
     project_name = "media-bias-group/annomatic_dataset"
 

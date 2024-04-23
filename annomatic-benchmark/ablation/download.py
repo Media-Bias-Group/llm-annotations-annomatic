@@ -7,7 +7,7 @@ from tqdm import tqdm
 if __name__ == "__main__":
     # Load environment variables from the .env file
     load_dotenv()
-    wandb.login(key=os.environ["WANDB"])
+    wandb.login(key=os.environ["WANDB_KEY"])
 
     # Specify the project name and tag
     project_name = "media-bias-group/annomatic_ablation"
