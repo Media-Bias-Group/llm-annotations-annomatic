@@ -55,7 +55,7 @@ print(
 )
 print(
     dev_df[dev_df["source_party"] == "Left"].label.value_counts(
-        normalize=True
+        normalize=True,
     ),
 )
 print(
