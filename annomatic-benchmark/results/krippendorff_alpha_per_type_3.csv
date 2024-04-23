@@ -1,0 +1,10 @@
+run_type,Alpha,Alpha (rounded),model_1,model_2,model_3
+0 Shot,0.5615029241208023,0.56,Flan-UL2,GPT-4 Turbo,Zephyr 7B β
+0 Shot + System Prompt,0.6170551068960022,0.62,GPT-3.5 Turbo,GPT-4 Turbo,OpenChat 3.5
+0 Shot CoT,0.48336266341759127,0.48,GPT-3.5 Turbo,Mixtral-8x7B Instruct,OpenChat 3.5
+2 Shot,0.6182878423249155,0.62,GPT-3.5 Turbo,OpenChat 3.5,Zephyr 7B β
+4 Shot,0.6723433246745166,0.67,GPT-3.5 Turbo,OpenChat 3.5,Zephyr 7B β
+8 Shot,0.6913932110348309,0.69,GPT-3.5 Turbo,OpenChat 3.5,Zephyr 7B β
+2 Shot CoT,0.646997859204239,0.65,GPT-4 Turbo,LLama 2 13B Chat,Mixtral-8x7B Instruct
+4 Shot CoT,0.6737549608655141,0.67,GPT-4 Turbo,LLama 2 13B Chat,Mixtral-8x7B Instruct
+8 Shot CoT,0.6910627585777016,0.69,LLama 2 13B Chat,OpenChat 3.5,Zephyr 7B β
