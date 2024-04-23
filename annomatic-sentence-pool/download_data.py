@@ -37,16 +37,24 @@ if __name__ == "__main__":
     download_data(project_name, "final_part_3", "data/annotation/final_part_3")
 
     download_data(
-        project_name, "final_part1_1", "data/annotation/final_part1/part_1"
+        project_name,
+        "final_part1_1",
+        "data/annotation/final_part1/part_1",
     )
     download_data(
-        project_name, "final_part1_2", "data/annotation/final_part1/part_2"
+        project_name,
+        "final_part1_2",
+        "data/annotation/final_part1/part_2",
     )
     download_data(
-        project_name, "final_part2_1", "data/annotation/final_part2/part_1"
+        project_name,
+        "final_part2_1",
+        "data/annotation/final_part2/part_1",
     )
     download_data(
-        project_name, "final_part2_2", "data/annotation/final_part2/part_2"
+        project_name,
+        "final_part2_2",
+        "data/annotation/final_part2/part_2",
     )
     download_data(project_name, "rest1_1", "data/annotation/rest_1/part_1")
     download_data(project_name, "rest1_2", "data/annotation/rest_1/part_2")

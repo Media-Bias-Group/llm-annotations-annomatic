@@ -52,7 +52,8 @@ anno_lex = load_dataset("mediabiasgroup/anno-lexical")
 
 
 model = AutoModelForSequenceClassification.from_pretrained(
-    base_model, num_labels=2
+    base_model,
+    num_labels=2,
 )
 tokenizer = AutoTokenizer.from_pretrained(base_model)
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
@@ -60,7 +61,10 @@ skfold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 # %% tokenize data
 tok = tokenizer(
-    list(babe["text"]), truncation=True, padding=True, max_length=128
+    list(babe["text"]),
+    truncation=True,
+    padding=True,
+    max_length=128,
 )
 babe_t = pd.DataFrame(
     {
@@ -131,7 +135,8 @@ training_args = TrainingArguments(
 def run_cv(run_name):
     scores = []
     for train_index, val_index in skfold.split(
-        babe_t["input_ids"], babe["label"]
+        babe_t["input_ids"],
+        babe["label"],
     ):
         train_t = (
             Dataset.from_dict(babe_t.iloc[train_index])
@@ -141,7 +146,8 @@ def run_cv(run_name):
         dev_t = Dataset.from_dict(babe_t.iloc[val_index])
         set_random_seed()
         model = AutoModelForSequenceClassification.from_pretrained(
-            base_model, num_labels=2
+            base_model,
+            num_labels=2,
         )
         model.to(device)
         trainer = Trainer(
@@ -155,7 +161,9 @@ def run_cv(run_name):
 
         # evaluation
         eval_dataloader = DataLoader(
-            dev_t, batch_size=32, collate_fn=data_collator
+            dev_t,
+            batch_size=32,
+            collate_fn=data_collator,
         )
         scores.append(compute_metrics(eval_dataloader, model))
         wandb.log(scores[-1])

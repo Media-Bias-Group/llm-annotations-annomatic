@@ -36,7 +36,8 @@ anno_lex = load_dataset("mediabiasgroup/anno-lexical")
 
 
 model = AutoModelForSequenceClassification.from_pretrained(
-    base_model, num_labels=2
+    base_model,
+    num_labels=2,
 )
 tokenizer = AutoTokenizer.from_pretrained(base_model)
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
@@ -135,7 +136,9 @@ trainer = Trainer(
 trainer.train()
 # %%
 eval_dataloader = DataLoader(
-    anno_lex_test_t, batch_size=32, collate_fn=data_collator
+    anno_lex_test_t,
+    batch_size=32,
+    collate_fn=data_collator,
 )
 print(compute_metrics(eval_dataloader, model))
 
