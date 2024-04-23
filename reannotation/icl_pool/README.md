@@ -1,0 +1,1 @@
+In this directory we create a pool of examples for reannotation and for the ICL example selection purposes. We select 100 candidates with the babe_pool_selection.ipynb. We then reannotate them to be extra sure that they are correct as they serve for ground ground truth to guide the LLM annotators.
