@@ -11,6 +11,7 @@ __pycache__/
 */wandb/*
 *local.env
 annomatic-dataset/*.csv
+annomatic-dataset/data/annotation/*
 # Distribution / packaging
 .Python
 build/
