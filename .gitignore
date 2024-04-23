@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 **/data/*.csv
-/agreement_analysis/*
+*/agreement_analysis/*
 # Distribution / packaging
 .Python
 build/
