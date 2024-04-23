@@ -1,7 +1,8 @@
-import seaborn as sns
+import re
+
 import matplotlib.pyplot as plt
 import pandas as pd
-import re
+import seaborn as sns
 
 
 def plot_distributions(df):
@@ -9,7 +10,7 @@ def plot_distributions(df):
     _, axes = plt.subplots(2, 1, figsize=(8, 6))
     sns.countplot(x="bias_rating", hue="media_bias", data=df, ax=axes[0])
     axes[0].set_title(
-        "Distribution of Media Bias in Partisanship of the article"
+        "Distribution of Media Bias in Partisanship of the article",
     )
     axes[0].set_ylabel("Count")
     top_topics = df["topic"].value_counts().head(5).index
@@ -21,8 +22,11 @@ def plot_distributions(df):
     plt.savefig("./media_bias_distribution.png")
     plt.show()
 
-import pandas as pd
+
 import functools
+
+import pandas as pd
+
 
 def to_parquet(filename):
     def decorator_to_parquet(func):
@@ -31,9 +35,11 @@ def to_parquet(filename):
             # Call the original function
             result = func(*args, **kwargs)
             result.to_parquet(filename)
-            
+
             return result
+
         return wrapper
+
     return decorator_to_parquet
 
 

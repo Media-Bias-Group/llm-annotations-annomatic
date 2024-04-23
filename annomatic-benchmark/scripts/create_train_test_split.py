@@ -1,9 +1,8 @@
 # %%
 import huggingface_hub
-from datasets import load_dataset, Dataset, DatasetDict
-from sklearn.model_selection import train_test_split
 import pandas as pd
-
+from datasets import Dataset, DatasetDict, load_dataset
+from sklearn.model_selection import train_test_split
 
 babe = load_dataset("mediabiasgroup/BABE-v4")["train"].to_pandas()
 pool = load_dataset("mediabiasgroup/BABE-icl-pool")["train"].to_pandas()
@@ -12,7 +11,11 @@ babe_t = babe[~babe["uuid"].isin(pool["uuid"])]
 
 
 train, test = train_test_split(
-    babe_t, train_size=3021, test_size=1000, stratify=babe_t["label"], random_state=42
+    babe_t,
+    train_size=3021,
+    test_size=1000,
+    stratify=babe_t["label"],
+    random_state=42,
 )
 train = pd.concat([train, pool]).drop(columns=["explanation"])
 train["label"] = train.label.astype(test.label.dtype)
@@ -21,7 +24,7 @@ ds = DatasetDict(
     {
         "train": Dataset.from_pandas(train, preserve_index=False),
         "test": Dataset.from_pandas(test, preserve_index=False),
-    }
+    },
 )
 
 # v3

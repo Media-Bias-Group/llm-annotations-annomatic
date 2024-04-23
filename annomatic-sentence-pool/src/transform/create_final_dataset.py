@@ -1,5 +1,4 @@
 import pandas as pd
-
 from src.utils_ import to_parquet
 
 INPUT_PATH = "data/transform/tmp"

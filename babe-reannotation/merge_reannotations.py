@@ -24,7 +24,7 @@ reann = pd.DataFrame(
         "tomas": d3.Tomas,
         "gpt": d1.gpt_4_label,
         "babe": d1.label,
-    }
+    },
 )
 reann["combined"] = reann[["timo", "tomas", "christoph"]].mode(axis=1)[0]
 pool = pd.read_csv("final_pool_with_explanations.csv")

@@ -1,10 +1,9 @@
 import logging
 import uuid
 
-from src.utils_ import unify_site_name, to_parquet
-
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from src.utils_ import to_parquet, unify_site_name
 
 RAW_PATH = "data/raw"
 INPUT_PATH = "data/extract/tmp"

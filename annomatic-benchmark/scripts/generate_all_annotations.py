@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+
 def run_scripts(start_dir):
     # Walk through all directories and files starting from start_dir
     for root, dirs, files in os.walk(start_dir):
@@ -24,4 +25,5 @@ def run_scripts(start_dir):
                 # Change back to the original start directory
                 os.chdir(start_dir)
 
-run_scripts('.')
+
+run_scripts(".")

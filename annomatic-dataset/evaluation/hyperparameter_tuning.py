@@ -5,7 +5,9 @@ import warnings
 import pandas as pd
 import torch
 import transformers
-from datasets import load_dataset, Dataset
+import wandb
+from datasets import Dataset, load_dataset
+from evaluation.utils import compute_metrics_hf, set_random_seed
 from transformers import (
     AutoModelForSequenceClassification,
     AutoTokenizer,
@@ -14,9 +16,6 @@ from transformers import (
     Trainer,
     TrainingArguments,
 )
-
-import wandb
-from evaluation.utils import set_random_seed, compute_metrics_hf
 
 # %% warning surpress
 transformers.logging.set_verbosity(transformers.logging.ERROR)
@@ -27,13 +26,17 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # %% definitions
 base_model = "roberta-base"
 magpie = "mediabiasgroup/lbm_without_media_bias_pretrained"
-device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+device = (
+    torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+)
 
 # %% prepare model & data
 anno_lex = load_dataset("mediabiasgroup/anno-lexical")
 
 
-model = AutoModelForSequenceClassification.from_pretrained(base_model, num_labels=2)
+model = AutoModelForSequenceClassification.from_pretrained(
+    base_model, num_labels=2
+)
 tokenizer = AutoTokenizer.from_pretrained(base_model)
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
@@ -52,7 +55,7 @@ anno_lex_train_t = Dataset.from_dict(
         "input_ids": tok["input_ids"],
         "attention_mask": tok["attention_mask"],
         "label": anno_lex["train"]["label"],
-    }
+    },
 )
 
 tok = tokenizer(
@@ -67,7 +70,7 @@ anno_lex_dev_t = Dataset.from_dict(
         "input_ids": tok["input_ids"],
         "attention_mask": tok["attention_mask"],
         "label": anno_lex["dev"]["label"],
-    }
+    },
 )
 
 tok = tokenizer(
@@ -82,7 +85,7 @@ anno_lex_test_t = Dataset.from_dict(
         "input_ids": tok["input_ids"],
         "attention_mask": tok["attention_mask"],
         "label": anno_lex["test"]["label"],
-    }
+    },
 )
 
 
@@ -92,9 +95,13 @@ def train_wrapper():
     Takes the (globally defined) tasks, instantiates a trainer for them.
     This function is passed as a callback to wandb.
     """
-    wandb.init(entity="media-bias-group", project="annomatic_dataset_hyperparams")
+    wandb.init(
+        entity="media-bias-group", project="annomatic_dataset_hyperparams"
+    )
     set_random_seed()
-    sweep_model = AutoModelForSequenceClassification.from_pretrained(base_model, num_labels=2)
+    sweep_model = AutoModelForSequenceClassification.from_pretrained(
+        base_model, num_labels=2
+    )
 
     training_args = TrainingArguments(
         report_to="wandb",
@@ -134,11 +141,11 @@ def train_wrapper():
 #     "lr": {"values": [2e-5, 3e-5, 4e-5, 1e-4]},
 #     "weight_decay": {"values": [0.01,0.05,0.1]},
 # }
-    
+
 # second search
 hyper_param_dict = {
     "epoch": {"values": [3]},
-    "lr": {"values": [1e-5,2e-5,3e-5,5e-6,1e-6]},
+    "lr": {"values": [1e-5, 2e-5, 3e-5, 5e-6, 1e-6]},
     "weight_decay": {"values": [0.05]},
 }
 

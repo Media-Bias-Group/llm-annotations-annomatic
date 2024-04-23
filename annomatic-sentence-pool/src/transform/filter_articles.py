@@ -1,8 +1,7 @@
 import pandas as pd
 from langdetect import detect
-from tqdm import tqdm
-
 from src.utils_ import to_parquet
+from tqdm import tqdm
 
 INPUT_PATH = "data/extract/output"
 OUTPUT_PATH = "data/transform/tmp"
