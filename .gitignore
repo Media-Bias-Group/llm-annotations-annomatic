@@ -2,11 +2,15 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
+
+
+# project
 **/data/*.csv
 */agreement_analysis/*
+*/wandb/*
+*local.env
+annomatic-dataset/*.csv
 # Distribution / packaging
 .Python
 build/
