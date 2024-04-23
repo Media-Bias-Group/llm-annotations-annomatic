@@ -1,10 +1,11 @@
+import re
+import uuid
+
 import pandas as pd
 from langdetect import detect
-from tqdm import tqdm
-import re
-from src.utils_ import to_parquet
 from nltk.tokenize import sent_tokenize
-import uuid
+from src.utils_ import to_parquet
+from tqdm import tqdm
 
 INPUT_PATH = "data/transform/tmp"
 OUTPUT_PATH = "data/transform/tmp"

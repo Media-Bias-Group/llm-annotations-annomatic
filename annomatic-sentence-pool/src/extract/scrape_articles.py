@@ -8,8 +8,9 @@ import uuid
 import newspaper
 import pandas as pd
 from newspaper import ArticleException
-from tqdm import tqdm
 from src.utils_ import to_parquet
+from tqdm import tqdm
+
 logging.getLogger("newspaper").setLevel(logging.CRITICAL)
 
 OUTPUT_PATH = "data/extract/output"
@@ -46,17 +47,16 @@ def _scrape_source_articles(outlet_link):
     return pd.DataFrame(rowlist)
 
 
-
 @to_parquet(f"{OUTPUT_PATH}/articles.parquet")
 def main():
     outlets_df = pd.read_parquet(f"{INPUT_PATH}/outlets.parquet").sample(
-        frac=1
+        frac=1,
     )
 
     # scrape articles
     for _, outlet_row in tqdm(outlets_df.iterrows(), total=len(outlets_df)):
         if os.path.isfile(
-            f"{TMP_PATH}/articles_{outlet_row['uni_source']}.parquet"
+            f"{TMP_PATH}/articles_{outlet_row['uni_source']}.parquet",
         ):
             print("Already scraped")
             continue
@@ -78,12 +78,13 @@ def main():
     for data in os.listdir(f"{TMP_PATH}"):
         if data.split("_")[0] == "articles":
             article_dataframes.append(
-                pd.read_parquet(f"{TMP_PATH}/{data}")
+                pd.read_parquet(f"{TMP_PATH}/{data}"),
             )
 
     articles_df = pd.concat(article_dataframes)
     subprocess.run(["rm", "-r", f"{TMP_PATH}"])
     return articles_df
+
 
 if __name__ == "__main__":
     main()

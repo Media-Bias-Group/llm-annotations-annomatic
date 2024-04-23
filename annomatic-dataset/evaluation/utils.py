@@ -1,10 +1,10 @@
 import functools
-from config import PROJECT_NAME, RANDOM_SEED
 import random
 
 import numpy as np
 import torch
 import wandb
+from config import PROJECT_NAME, RANDOM_SEED
 from sklearn.metrics import (
     f1_score,
     matthews_corrcoef,
@@ -100,7 +100,9 @@ def wandb_run():
     def decorator_wandb_run(func):
         @functools.wraps(func)
         def wrapper(run_name, *args, **kwargs):
-            wandb.init(entity="media-bias-group", project=PROJECT_NAME, name=run_name)
+            wandb.init(
+                entity="media-bias-group", project=PROJECT_NAME, name=run_name
+            )
             func(run_name, *args, **kwargs)
             wandb.finish()
 

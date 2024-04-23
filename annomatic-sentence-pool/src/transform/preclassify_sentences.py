@@ -23,7 +23,10 @@ def predict_bias_batch(sentences, batch_size=32):
     for i in tqdm(range(0, len(sentences), batch_size)):
         batch = sentences[i : i + batch_size]
         inputs = tokenizer(
-            batch, padding=True, truncation=True, return_tensors="pt"
+            batch,
+            padding=True,
+            truncation=True,
+            return_tensors="pt",
         ).to("cuda")
         with torch.no_grad():
             logits = model(**inputs).logits

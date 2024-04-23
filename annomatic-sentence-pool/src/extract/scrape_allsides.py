@@ -5,11 +5,12 @@ import re
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from tqdm import tqdm
 from src.utils_ import to_parquet
+from tqdm import tqdm
 
 INPUT_PATH = "data/raw"
 OUTPUT_PATH = "data/extract/tmp"
+
 
 def _get_news_website(url):
     """
@@ -36,6 +37,7 @@ def _get_news_website(url):
     else:
         return None
 
+
 @to_parquet(f"{OUTPUT_PATH}/allsides_snapshot.parquet")
 def main():
     """
@@ -52,7 +54,11 @@ def main():
             - community_feedback (str): The community feedback.
     """
     logging.info("Parsing html file...")
-    with open(f"{INPUT_PATH}/all_sides_snapshot_15_11_2023.html", "r", encoding="utf-8") as file:
+    with open(
+        f"{INPUT_PATH}/all_sides_snapshot_15_11_2023.html",
+        "r",
+        encoding="utf-8",
+    ) as file:
         contents = file.read()
     soup = BeautifulSoup(contents, "html.parser")
 
