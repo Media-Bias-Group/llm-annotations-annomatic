@@ -1,0 +1,4 @@
+datasets==2.18.0
+fuzzywuzzy==0.18.0
+pandas==2.2.2
+seaborn==0.13.2
