@@ -12,6 +12,8 @@ __pycache__/
 *local.env
 annomatic-dataset/*.csv
 annomatic-dataset/data/annotation/*
+annomatic-sentence-pool/data/raw/adfontes_snapshot.parquet
+annomatic-sentence-pool/data/raw/all_sides_snapshot_15_11_2023.html
 # Distribution / packaging
 .Python
 build/
