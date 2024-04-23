@@ -11,7 +11,10 @@ df = df.rename(columns={"final_label": "label"})
 
 # %%
 train_df, devtest_df = train_test_split(
-    df, test_size=0.3, stratify=df.source_party, random_state=42
+    df,
+    test_size=0.3,
+    stratify=df.source_party,
+    random_state=42,
 )
 dev_df, test_df = train_test_split(
     devtest_df,
@@ -47,33 +50,35 @@ print("Per party label distribution")
 print("\nLeft")
 print(
     train_df[train_df["source_party"] == "Left"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 print(
-    dev_df[dev_df["source_party"] == "Left"].label.value_counts(normalize=True)
+    dev_df[dev_df["source_party"] == "Left"].label.value_counts(
+        normalize=True
+    ),
 )
 print(
     test_df[test_df["source_party"] == "Left"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 
 print("\nRight")
 print(
     train_df[train_df["source_party"] == "Right"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 print(
     dev_df[dev_df["source_party"] == "Right"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 print(
     test_df[test_df["source_party"] == "Right"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 
 # %%
@@ -82,17 +87,17 @@ print("Per source label distribution")
 print("\nLeft")
 print(
     train_df[train_df["source_name"] == "alternet"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 print(
     dev_df[dev_df["source_name"] == "alternet"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 print(
     test_df[test_df["source_name"] == "alternet"].label.value_counts(
-        normalize=True
-    )
+        normalize=True,
+    ),
 )
 # %%

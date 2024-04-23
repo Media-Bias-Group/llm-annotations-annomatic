@@ -85,7 +85,8 @@ def compute_krippendorff_alpha_for_k_runs(df, runs, k=None):
         )
 
     for combination in tqdm(
-        itertools.combinations(runs, k), total=math.comb(len(runs), k)
+        itertools.combinations(runs, k),
+        total=math.comb(len(runs), k),
     ):
         # for combination in itertools.combinations(runs,k):
 
@@ -120,7 +121,10 @@ futures = []
 with concurrent.futures.ProcessPoolExecutor() as executor:
     for k in range(1, len(runs) + 1, 2):
         future = executor.submit(
-            compute_krippendorff_alpha_for_k_runs, df, runs, k
+            compute_krippendorff_alpha_for_k_runs,
+            df,
+            runs,
+            k,
         )
         futures.append(future)
 
@@ -133,7 +137,7 @@ os.mkdir(f"agreement_analysis/{path}")
 for result in results:
     if len(result) != 0:
         result.to_csv(
-            f"agreement_analysis/{path}/{len(result['combination'][0])}.csv"
+            f"agreement_analysis/{path}/{len(result['combination'][0])}.csv",
         )
 
 

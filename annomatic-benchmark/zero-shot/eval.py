@@ -446,7 +446,8 @@ df_falcon_7b.query("label == '?'")
 
 df_falcon_7b = df_falcon_7b.rename(columns={"label": "falcon_7b_label"})
 df_falcon_7b["falcon_7b_label"] = df_falcon_7b["falcon_7b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_falcon_7b["falcon_7b_label"] = df_falcon_7b["falcon_7b_label"].replace(
     "NOT BIASED",
@@ -466,7 +467,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_falcon_7b[["text", "falcon_7b_label"]], on="text"
+    df_falcon_7b[["text", "falcon_7b_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -512,7 +514,7 @@ df_flan_t5_base.query("label == '?'")
 
 
 df_flan_t5_base = df_flan_t5_base.rename(
-    columns={"label": "flan_t5_base_label"}
+    columns={"label": "flan_t5_base_label"},
 )
 df_flan_t5_base["flan_t5_base_label"] = df_flan_t5_base[
     "flan_t5_base_label"
@@ -534,7 +536,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_t5_base[["text", "flan_t5_base_label"]], on="text"
+    df_flan_t5_base[["text", "flan_t5_base_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -580,7 +583,7 @@ df_flan_t5_large.query("label == '?'")
 
 
 df_flan_t5_large = df_flan_t5_large.rename(
-    columns={"label": "flan_t5_large_label"}
+    columns={"label": "flan_t5_large_label"},
 )
 df_flan_t5_large["flan_t5_large_label"] = df_flan_t5_large[
     "flan_t5_large_label"
@@ -602,7 +605,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_t5_large[["text", "flan_t5_large_label"]], on="text"
+    df_flan_t5_large[["text", "flan_t5_large_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -649,10 +653,12 @@ df_flan_t5_xl.query("label == '?'")
 
 df_flan_t5_xl = df_flan_t5_xl.rename(columns={"label": "flan_t5_xl_label"})
 df_flan_t5_xl["flan_t5_xl_label"] = df_flan_t5_xl["flan_t5_xl_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_flan_t5_xl["flan_t5_xl_label"] = df_flan_t5_xl["flan_t5_xl_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -668,7 +674,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_t5_xl[["text", "flan_t5_xl_label"]], on="text"
+    df_flan_t5_xl[["text", "flan_t5_xl_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -715,10 +722,12 @@ df_flan_ul2.query("label == '?'")
 
 df_flan_ul2 = df_flan_ul2.rename(columns={"label": "flan_ul2_label"})
 df_flan_ul2["flan_ul2_label"] = df_flan_ul2["flan_ul2_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_flan_ul2["flan_ul2_label"] = df_flan_ul2["flan_ul2_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -734,7 +743,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_ul2[["text", "flan_ul2_label"]], on="text"
+    df_flan_ul2[["text", "flan_ul2_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -745,7 +755,8 @@ flan_ul2_label = df_merge["flan_ul2_label"].astype(int)
 
 
 print(
-    "F1-Score with Flan UL2 (0 shot): ", f1_score(ground_truth, flan_ul2_label)
+    "F1-Score with Flan UL2 (0 shot): ",
+    f1_score(ground_truth, flan_ul2_label),
 )
 print(
     "Precision with Flan UL2 (0 shot): ",
@@ -779,7 +790,7 @@ df_openai_gpt_3_5_turbo.query("label == '?'")
 
 
 df_openai_gpt_3_5_turbo = df_openai_gpt_3_5_turbo.rename(
-    columns={"label": "gpt_3_5_label"}
+    columns={"label": "gpt_3_5_label"},
 )
 df_openai_gpt_3_5_turbo["gpt_3_5_label"] = df_openai_gpt_3_5_turbo[
     "gpt_3_5_label"
@@ -807,7 +818,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_openai_gpt_3_5_turbo[["text", "gpt_3_5_label"]], on="text"
+    df_openai_gpt_3_5_turbo[["text", "gpt_3_5_label"]],
+    on="text",
 )
 
 
@@ -848,7 +860,7 @@ df_openai_gpt_4_turbo.query("label == '?'")
 
 
 df_openai_gpt_4_turbo = df_openai_gpt_4_turbo.rename(
-    columns={"label": "gpt_4_label"}
+    columns={"label": "gpt_4_label"},
 )
 df_openai_gpt_4_turbo["gpt_4_label"] = df_openai_gpt_4_turbo[
     "gpt_4_label"
@@ -876,7 +888,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_openai_gpt_4_turbo[["text", "gpt_4_label"]], on="text"
+    df_openai_gpt_4_turbo[["text", "gpt_4_label"]],
+    on="text",
 )
 
 
@@ -954,10 +967,12 @@ df_Llama_2_7b.query("label == '?'")
 
 df_Llama_2_7b = df_Llama_2_7b.rename(columns={"label": "llama_7b_label"})
 df_Llama_2_7b["llama_7b_label"] = df_Llama_2_7b["llama_7b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_Llama_2_7b["llama_7b_label"] = df_Llama_2_7b["llama_7b_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -973,7 +988,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_Llama_2_7b[["text", "llama_7b_label"]], on="text"
+    df_Llama_2_7b[["text", "llama_7b_label"]],
+    on="text",
 )
 
 
@@ -985,7 +1001,8 @@ llama_7b_label = df_merge["llama_7b_label"].astype(int)
 
 
 print(
-    "F1-Score with llama 7b (0 shot): ", f1_score(ground_truth, llama_7b_label)
+    "F1-Score with llama 7b (0 shot): ",
+    f1_score(ground_truth, llama_7b_label),
 )
 print(
     "Precision with llama 7b (0 shot): ",
@@ -1050,10 +1067,12 @@ df_Llama_2_13b.query("label == '?'")
 
 df_Llama_2_13b = df_Llama_2_13b.rename(columns={"label": "llama_13b_label"})
 df_Llama_2_13b["llama_13b_label"] = df_Llama_2_13b["llama_13b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_Llama_2_13b["llama_13b_label"] = df_Llama_2_13b["llama_13b_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -1069,7 +1088,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_Llama_2_13b[["text", "llama_13b_label"]], on="text"
+    df_Llama_2_13b[["text", "llama_13b_label"]],
+    on="text",
 )
 
 
@@ -1124,10 +1144,12 @@ df_mistral_7b.loc[[1072, 2156, 3156], "label"] = "BIASED"
 
 df_mistral_7b = df_mistral_7b.rename(columns={"label": "mistral_7b_label"})
 df_mistral_7b["mistral_7b_label"] = df_mistral_7b["mistral_7b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_mistral_7b["mistral_7b_label"] = df_mistral_7b["mistral_7b_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -1143,7 +1165,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_mistral_7b[["text", "mistral_7b_label"]], on="text"
+    df_mistral_7b[["text", "mistral_7b_label"]],
+    on="text",
 )
 
 
@@ -1254,7 +1277,7 @@ df_mixtral_8x7b["label"] = df_mixtral_8x7b["label"].replace("!", "?")
 
 
 df_mixtral_8x7b = df_mixtral_8x7b.rename(
-    columns={"label": "mixtral_8x7b_label"}
+    columns={"label": "mixtral_8x7b_label"},
 )
 df_mixtral_8x7b["mixtral_8x7b_label"] = df_mixtral_8x7b[
     "mixtral_8x7b_label"
@@ -1279,7 +1302,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_mixtral_8x7b[["text", "mixtral_8x7b_label"]], on="text"
+    df_mixtral_8x7b[["text", "mixtral_8x7b_label"]],
+    on="text",
 )
 
 
@@ -1344,10 +1368,12 @@ df_openchat_3_5.query("label == '?'")
 
 df_openchat_3_5 = df_openchat_3_5.rename(columns={"label": "openchat_label"})
 df_openchat_3_5["openchat_label"] = df_openchat_3_5["openchat_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_openchat_3_5["openchat_label"] = df_openchat_3_5["openchat_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -1363,7 +1389,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_openchat_3_5[["text", "openchat_label"]], on="text"
+    df_openchat_3_5[["text", "openchat_label"]],
+    on="text",
 )
 
 
@@ -1458,10 +1485,12 @@ df_zephyr_7b_beta.loc[2803]["response"]
 
 df_zephyr_7b_beta = df_zephyr_7b_beta.rename(columns={"label": "zephyr_label"})
 df_zephyr_7b_beta["zephyr_label"] = df_zephyr_7b_beta["zephyr_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_zephyr_7b_beta["zephyr_label"] = df_zephyr_7b_beta["zephyr_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -1477,7 +1506,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_zephyr_7b_beta[["text", "zephyr_label"]], on="text"
+    df_zephyr_7b_beta[["text", "zephyr_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)

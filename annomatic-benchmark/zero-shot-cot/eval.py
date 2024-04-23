@@ -438,14 +438,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -462,7 +462,7 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "The sentence above is classified as NOT BIASED"
+            "The sentence above is classified as NOT BIASED",
         )
         and row["label"] == "?"
     ):
@@ -670,7 +670,8 @@ df_falcon_7b["label"] = df_falcon_7b["label"].replace("!", "?")
 
 df_falcon_7b = df_falcon_7b.rename(columns={"label": "falcon_7b_label"})
 df_falcon_7b["falcon_7b_label"] = df_falcon_7b["falcon_7b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_falcon_7b["falcon_7b_label"] = df_falcon_7b["falcon_7b_label"].replace(
     "NOT BIASED",
@@ -690,7 +691,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_falcon_7b[["text", "falcon_7b_label"]], on="text"
+    df_falcon_7b[["text", "falcon_7b_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -730,7 +732,7 @@ df_flan_t5_base.query("label == '?'")
 
 
 df_flan_t5_base = df_flan_t5_base.rename(
-    columns={"label": "flan_t5_base_label"}
+    columns={"label": "flan_t5_base_label"},
 )
 df_flan_t5_base["flan_t5_base_label"] = df_flan_t5_base[
     "flan_t5_base_label"
@@ -752,7 +754,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_t5_base[["text", "flan_t5_base_label"]], on="text"
+    df_flan_t5_base[["text", "flan_t5_base_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -804,14 +807,14 @@ def update_label(row):
         return "BIASED"
     elif (
         str(row["response"]).startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         str(row["response"]).startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -907,7 +910,7 @@ df_flan_t5_large.query("label == '?'")
 df_flan_t5_large["label"] = df_flan_t5_large["label"].replace("!", "?")
 
 df_flan_t5_large = df_flan_t5_large.rename(
-    columns={"label": "flan_t5_large_label"}
+    columns={"label": "flan_t5_large_label"},
 )
 df_flan_t5_large["flan_t5_large_label"] = df_flan_t5_large[
     "flan_t5_large_label"
@@ -929,7 +932,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_t5_large[["text", "flan_t5_large_label"]], on="text"
+    df_flan_t5_large[["text", "flan_t5_large_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -987,14 +991,14 @@ def update_label(row):
         return "BIASED"
     elif (
         str(row["response"]).startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         str(row["response"]).startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -1027,10 +1031,12 @@ df_flan_t5_xl.query("label == '?'")
 
 df_flan_t5_xl = df_flan_t5_xl.rename(columns={"label": "flan_t5_xl_label"})
 df_flan_t5_xl["flan_t5_xl_label"] = df_flan_t5_xl["flan_t5_xl_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_flan_t5_xl["flan_t5_xl_label"] = df_flan_t5_xl["flan_t5_xl_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -1046,7 +1052,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_t5_xl[["text", "flan_t5_xl_label"]], on="text"
+    df_flan_t5_xl[["text", "flan_t5_xl_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -1106,14 +1113,14 @@ def update_label(row):
         return "BIASED"
     elif (
         str(row["response"]).startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         str(row["response"]).startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -1136,10 +1143,12 @@ df_flan_ul2.query("label == '?'")
 
 df_flan_ul2 = df_flan_ul2.rename(columns={"label": "flan_ul2_label"})
 df_flan_ul2["flan_ul2_label"] = df_flan_ul2["flan_ul2_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_flan_ul2["flan_ul2_label"] = df_flan_ul2["flan_ul2_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -1155,7 +1164,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_flan_ul2[["text", "flan_ul2_label"]], on="text"
+    df_flan_ul2[["text", "flan_ul2_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)
@@ -1296,7 +1306,8 @@ def update_label(row):
 
 
 df_openai_gpt_3_5_turbo["label"] = df_openai_gpt_3_5_turbo.apply(
-    update_label, axis=1
+    update_label,
+    axis=1,
 )
 df_openai_gpt_3_5_turbo.query("label == '?'")
 
@@ -1413,7 +1424,7 @@ df_openai_gpt_3_5_turbo.query("label == '?'")
 
 
 df_openai_gpt_3_5_turbo = df_openai_gpt_3_5_turbo.rename(
-    columns={"label": "gpt_3_5_label"}
+    columns={"label": "gpt_3_5_label"},
 )
 df_openai_gpt_3_5_turbo["gpt_3_5_label"] = df_openai_gpt_3_5_turbo[
     "gpt_3_5_label"
@@ -1441,7 +1452,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_openai_gpt_3_5_turbo[["text", "gpt_3_5_label"]], on="text"
+    df_openai_gpt_3_5_turbo[["text", "gpt_3_5_label"]],
+    on="text",
 )
 
 
@@ -1509,14 +1521,14 @@ def update_label(row):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -1526,7 +1538,8 @@ def update_label(row):
 
 
 df_openai_gpt_4_turbo["label"] = df_openai_gpt_4_turbo.apply(
-    update_label, axis=1
+    update_label,
+    axis=1,
 )
 df_openai_gpt_4_turbo.query("label == '?'")
 
@@ -1542,7 +1555,8 @@ df_openai_gpt_4_turbo.loc[1].response
 
 df_openai_gpt_4_turbo.loc[[], "label"] = "BIASED"
 df_openai_gpt_4_turbo.loc[
-    [42, 29, 28, 25, 21, 17, 13, 8, 3, 1], "label"
+    [42, 29, 28, 25, 21, 17, 13, 8, 3, 1],
+    "label",
 ] = "NOT BIASED"
 
 
@@ -1584,7 +1598,7 @@ df_openai_gpt_4_turbo.loc[
 
 
 df_openai_gpt_4_turbo = df_openai_gpt_4_turbo.rename(
-    columns={"label": "gpt_4_label"}
+    columns={"label": "gpt_4_label"},
 )
 df_openai_gpt_4_turbo["gpt_4_label"] = df_openai_gpt_4_turbo[
     "gpt_4_label"
@@ -1667,14 +1681,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -1691,7 +1705,7 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "The sentence above is classified as NOT BIASED"
+            "The sentence above is classified as NOT BIASED",
         )
         and row["label"] == "?"
     ):
@@ -1797,35 +1811,35 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Please provide your answer and explain your reasoning."
+            "Please provide your answer and explain your reasoning.",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "What is your classification of the sentence?"
+            "What is your classification of the sentence?",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "Please provide your answers for each step, and I will let you know if you are correct or not."
+            "Please provide your answers for each step, and I will let you know if you are correct or not.",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "Please provide your answer and reasoning for each point."
+            "Please provide your answer and reasoning for each point.",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "Please provide your answer in the format specified."
+            "Please provide your answer in the format specified.",
         )
         and row["label"] == "?"
     ):
@@ -1837,7 +1851,7 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Please select one of the options from the table above."
+            "Please select one of the options from the table above.",
         )
         and row["label"] == "?"
     ):
@@ -1849,7 +1863,7 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Please answer these questions and I will provide you with the classification of the sentence."
+            "Please answer these questions and I will provide you with the classification of the sentence.",
         )
         and row["label"] == "?"
     ):
@@ -1861,7 +1875,7 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Please provide your answer for each point and I will give you the final classification."
+            "Please provide your answer for each point and I will give you the final classification.",
         )
         and row["label"] == "?"
     ):
@@ -2193,10 +2207,12 @@ df_Llama_2_7b["label"] = df_Llama_2_7b["label"].replace("!", "?")
 
 df_Llama_2_7b = df_Llama_2_7b.rename(columns={"label": "llama_7b_label"})
 df_Llama_2_7b["llama_7b_label"] = df_Llama_2_7b["llama_7b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_Llama_2_7b["llama_7b_label"] = df_Llama_2_7b["llama_7b_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -2212,7 +2228,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_Llama_2_7b[["text", "llama_7b_label"]], on="text"
+    df_Llama_2_7b[["text", "llama_7b_label"]],
+    on="text",
 )
 
 
@@ -2274,14 +2291,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -2298,7 +2315,7 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "The sentence above is classified as NOT BIASED"
+            "The sentence above is classified as NOT BIASED",
         )
         and row["label"] == "?"
     ):
@@ -2404,28 +2421,28 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Please provide your answer and explain your reasoning."
+            "Please provide your answer and explain your reasoning.",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "What is your classification of the sentence?"
+            "What is your classification of the sentence?",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "Please provide your answers for each step, and I will let you know if you are correct or not."
+            "Please provide your answers for each step, and I will let you know if you are correct or not.",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "Please answer the questions above before I can help you classify the sentence."
+            "Please answer the questions above before I can help you classify the sentence.",
         )
         and row["label"] == "?"
     ):
@@ -2454,7 +2471,7 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Please answer the questions before I can classify the sentence as biased or not biased."
+            "Please answer the questions before I can classify the sentence as biased or not biased.",
         )
         and row["label"] == "?"
     ):
@@ -2466,14 +2483,14 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Please answer the questions above before I can give you the answer to your question."
+            "Please answer the questions above before I can give you the answer to your question.",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "I'll wait for your response before proceeding further."
+            "I'll wait for your response before proceeding further.",
         )
         and row["label"] == "?"
     ):
@@ -2688,10 +2705,12 @@ df_Llama_2_13b["label"] = df_Llama_2_13b["label"].replace("!", "?")
 
 df_Llama_2_13b = df_Llama_2_13b.rename(columns={"label": "llama_13b_label"})
 df_Llama_2_13b["llama_13b_label"] = df_Llama_2_13b["llama_13b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_Llama_2_13b["llama_13b_label"] = df_Llama_2_13b["llama_13b_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -2707,7 +2726,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_Llama_2_13b[["text", "llama_13b_label"]], on="text"
+    df_Llama_2_13b[["text", "llama_13b_label"]],
+    on="text",
 )
 
 
@@ -2769,14 +2789,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -2793,7 +2813,7 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "The sentence above is classified as NOT BIASED"
+            "The sentence above is classified as NOT BIASED",
         )
         and row["label"] == "?"
     ):
@@ -2886,14 +2906,14 @@ def update_label(row):
         return "!"
     elif (
         row["response"].endswith(
-            "Can you provide more context or clarify the author's opinion?"
+            "Can you provide more context or clarify the author's opinion?",
         )
         and row["label"] == "?"
     ):
         return "!"
     elif (
         row["response"].endswith(
-            "cannot classify the sentence as biased or not biased without more context."
+            "cannot classify the sentence as biased or not biased without more context.",
         )
         and row["label"] == "?"
     ):
@@ -3274,10 +3294,12 @@ df_mistral_7b["label"] = df_mistral_7b["label"].replace("!", "?")
 
 df_mistral_7b = df_mistral_7b.rename(columns={"label": "mistral_7b_label"})
 df_mistral_7b["mistral_7b_label"] = df_mistral_7b["mistral_7b_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_mistral_7b["mistral_7b_label"] = df_mistral_7b["mistral_7b_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -3293,7 +3315,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_mistral_7b[["text", "mistral_7b_label"]], on="text"
+    df_mistral_7b[["text", "mistral_7b_label"]],
+    on="text",
 )
 
 
@@ -3355,14 +3378,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -3379,7 +3402,7 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "The sentence above is classified as NOT BIASED"
+            "The sentence above is classified as NOT BIASED",
         )
         and row["label"] == "?"
     ):
@@ -3635,7 +3658,7 @@ df_mixtral_8x7b.query("label == '?'")
 df_mixtral_8x7b["label"] = df_mixtral_8x7b["label"].replace("!", "?")
 
 df_mixtral_8x7b = df_mixtral_8x7b.rename(
-    columns={"label": "mixtral_8x7b_label"}
+    columns={"label": "mixtral_8x7b_label"},
 )
 df_mixtral_8x7b["mixtral_8x7b_label"] = df_mixtral_8x7b[
     "mixtral_8x7b_label"
@@ -3660,7 +3683,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_mixtral_8x7b[["text", "mixtral_8x7b_label"]], on="text"
+    df_mixtral_8x7b[["text", "mixtral_8x7b_label"]],
+    on="text",
 )
 
 
@@ -3722,14 +3746,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -3746,7 +3770,7 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response"].startswith(
-            "The sentence above is classified as NOT BIASED"
+            "The sentence above is classified as NOT BIASED",
         )
         and row["label"] == "?"
     ):
@@ -4015,10 +4039,12 @@ df_openchat_3_5["label"] = df_openchat_3_5["label"].replace("!", "?")
 
 df_openchat_3_5 = df_openchat_3_5.rename(columns={"label": "openchat_label"})
 df_openchat_3_5["openchat_label"] = df_openchat_3_5["openchat_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_openchat_3_5["openchat_label"] = df_openchat_3_5["openchat_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -4034,7 +4060,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_openchat_3_5[["text", "openchat_label"]], on="text"
+    df_openchat_3_5[["text", "openchat_label"]],
+    on="text",
 )
 
 
@@ -4069,7 +4096,8 @@ print(
 
 
 df_zephyr_7b_beta["response_short"] = df_zephyr_7b_beta.apply(
-    split_and_store, axis=1
+    split_and_store,
+    axis=1,
 )
 df_zephyr_7b_beta.query("label == '?'")
 
@@ -4101,14 +4129,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response_short"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response_short"].startswith(
-            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED"
+            "Classify the sentence above as BIASED or NOT BIASED.\n\nOutput: BIASED",
         )
         and row["label"] == "?"
     ):
@@ -4125,14 +4153,14 @@ def update_label(row):
         return "BIASED"
     elif (
         row["response_short"].startswith(
-            "The sentence above is classified as NOT BIASED"
+            "The sentence above is classified as NOT BIASED",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response_short"].startswith(
-            "The sentence is classified as not biased"
+            "The sentence is classified as not biased",
         )
         and row["label"] == "?"
     ):
@@ -4149,14 +4177,14 @@ def update_label(row):
         return "NOT BIASED"
     elif (
         row["response_short"].startswith(
-            "The sentence is labeled as not biased"
+            "The sentence is labeled as not biased",
         )
         and row["label"] == "?"
     ):
         return "NOT BIASED"
     elif (
         row["response_short"].startswith(
-            "The sentence appears to be NOT BIASED"
+            "The sentence appears to be NOT BIASED",
         )
         and row["label"] == "?"
     ):
@@ -4507,10 +4535,12 @@ df_zephyr_7b_beta["label"] = df_zephyr_7b_beta["label"].replace("!", "?")
 
 df_zephyr_7b_beta = df_zephyr_7b_beta.rename(columns={"label": "zephyr_label"})
 df_zephyr_7b_beta["zephyr_label"] = df_zephyr_7b_beta["zephyr_label"].replace(
-    "BIASED", 1
+    "BIASED",
+    1,
 )
 df_zephyr_7b_beta["zephyr_label"] = df_zephyr_7b_beta["zephyr_label"].replace(
-    "NOT BIASED", 0
+    "NOT BIASED",
+    0,
 )
 
 df_merge = df_babe.merge(
@@ -4526,7 +4556,8 @@ df_merge_all_runs = df_merge_all_runs.merge(
     on="text",
 )
 df_merge_all_runs_with_errors = df_merge_all_runs_with_errors.merge(
-    df_zephyr_7b_beta[["text", "zephyr_label"]], on="text"
+    df_zephyr_7b_beta[["text", "zephyr_label"]],
+    on="text",
 )
 
 ground_truth = df_merge["label"].astype(int)

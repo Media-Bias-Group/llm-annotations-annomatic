@@ -35,7 +35,8 @@ anno_lex = load_dataset("mediabiasgroup/anno-lexical")
 
 
 model = AutoModelForSequenceClassification.from_pretrained(
-    base_model, num_labels=2
+    base_model,
+    num_labels=2,
 )
 tokenizer = AutoTokenizer.from_pretrained(base_model)
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
@@ -96,11 +97,13 @@ def train_wrapper():
     This function is passed as a callback to wandb.
     """
     wandb.init(
-        entity="media-bias-group", project="annomatic_dataset_hyperparams"
+        entity="media-bias-group",
+        project="annomatic_dataset_hyperparams",
     )
     set_random_seed()
     sweep_model = AutoModelForSequenceClassification.from_pretrained(
-        base_model, num_labels=2
+        base_model,
+        num_labels=2,
     )
 
     training_args = TrainingArguments(
