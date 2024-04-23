@@ -1,0 +1,14 @@
+model,Alpha,Alpha (rounded),run_1,run_2,run_3,run_4
+Falcon-7B-Instruct ,0.2711208512917912,0.27,4 Shot,8 Shot,2 Shot CoT,4 Shot CoT
+FLAN-T5-Base,0.13906249046970198,0.14,0 Shot,0 Shot + System Prompt,0 Shot CoT,4 Shot
+FLAN-T5-Large ,0.19353739249456958,0.19,0 Shot,0 Shot + System Prompt,2 Shot,4 Shot
+FLAN-T5-XL ,0.636920000993032,0.64,0 Shot + System Prompt,0 Shot CoT,2 Shot,4 Shot
+Flan-UL2,0.709196778520244,0.71,0 Shot,2 Shot,4 Shot,8 Shot
+GPT-3.5 Turbo,0.7409462107335548,0.74,2 Shot,4 Shot,8 Shot,8 Shot CoT
+GPT-4 Turbo,0.8296634063841484,0.83,0 Shot + System Prompt,2 Shot CoT,4 Shot CoT,8 Shot CoT
+LLama 2 7B Chat,0.5981109290242732,0.6,8 Shot,2 Shot CoT,4 Shot CoT,8 Shot CoT
+LLama 2 13B Chat,0.6695314957579683,0.67,8 Shot,2 Shot CoT,4 Shot CoT,8 Shot CoT
+Mistral-7B-v0.1 Instruct,0.4662781422427511,0.47,0 Shot + System Prompt,2 Shot CoT,4 Shot CoT,8 Shot CoT
+Mixtral-8x7B Instruct,0.7941109422821724,0.79,4 Shot,8 Shot,4 Shot CoT,8 Shot CoT
+OpenChat 3.5,0.6995876263761652,0.7,2 Shot,4 Shot,8 Shot,8 Shot CoT
+Zephyr 7B β,0.709554575018575,0.71,2 Shot,4 Shot,8 Shot,8 Shot CoT
