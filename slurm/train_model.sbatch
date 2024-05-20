@@ -12,11 +12,10 @@
 PROJECT_PATH=/user/spinde/u11191/llm-annotations-emnlp24
 CWD=$(pwd)
 module load anaconda3/2019.03
-module load 2021a python/3.9
 module load cuda
 
-source activate annomatic
-cd PROJECT_PATH
+conda activate llmann_env
+cd "$PROJECT_PATH"
 export PYTHONPATH=$PYTHONPATH:$PROJECT_PATH
 export TOKENIZERS_PARALLELISM=true
 python evaluation/train_final_babe_classifier.py
