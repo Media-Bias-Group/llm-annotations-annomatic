@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=tomas-train
-#SBATCH -p kisski
 #SBATCH -n 10
-#SBATCH -g a100:1
+#SBATCH -G A100:1
 #SBATCH --nodes=1
 #SBATCH --mem=40GB
 #SBATCH --time=0-00:20:00
