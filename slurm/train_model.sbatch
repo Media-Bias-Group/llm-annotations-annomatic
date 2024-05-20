@@ -11,9 +11,8 @@
 
 PROJECT_PATH=/user/spinde/u11191/llm-annotations-emnlp24
 CWD=$(pwd)
-module load anaconda3
-module load 2021a GCC/10.3.0
-module load 2021a python/3.10.13
+module load anaconda3/2019.03
+module load 2021a python/3.9
 module load cuda
 
 source activate annomatic
