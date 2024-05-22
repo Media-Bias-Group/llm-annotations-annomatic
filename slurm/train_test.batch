@@ -1,14 +1,12 @@
 #!/bin/bash
-
-echo $SHELL
-
-#SBATCH --job-name=tomas-train
-#SBATCH -n 10
-#SBATCH -G 1
-#SBATCH --nodes=1
+#SBATCH --job-name=testing-train
+#SBATCH --output=./logs/%x-%j.out
+#SBATCH --error=./logs/%x-%j.err
+#SBATCH -p kisski
+#SBATCH -t 00:20:00
+#SBATCH -G A100:1
 #SBATCH --mem=40GB
-#SBATCH --time=0-00:20:00
-#SBATCH -o anno_logs/%x-%j.out
+#SBATCH --job-name=testing-train
 
 PROJECT_PATH=/user/spinde/u11191/llm-annotations-emnlp24
 CWD=$(pwd)
