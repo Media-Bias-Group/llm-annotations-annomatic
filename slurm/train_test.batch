@@ -1,20 +1,28 @@
 #!/bin/bash
 #SBATCH --job-name=testing-train
-#SBATCH --output=./logs/%x-%j.out
-#SBATCH --error=./logs/%x-%j.err
+#SBATCH --out=./logs/%x-%j.out
+
 #SBATCH -p kisski
 #SBATCH -t 00:20:00
 #SBATCH -G A100:1
 #SBATCH --mem=40GB
 #SBATCH --job-name=testing-train
 
-PROJECT_PATH=/user/spinde/u11191/llm-annotations-emnlp24
+PROJECT_PATH=/user/spinde/u11191/llm-annotations
 CWD=$(pwd)
 module load anaconda3
 module load cuda
+module load python/3.10.13
 
+eval "$(conda shell.bash hook)"
 conda activate llmann_env
+
+python --version
+python -m torch.utils.collect_env
+nvcc -V
+
 cd "$PROJECT_PATH"
 export PYTHONPATH=$PYTHONPATH:$PROJECT_PATH
 export TOKENIZERS_PARALLELISM=true
+export WANDB_DISABLE_SERVICE=true
 python evaluation/train_final_babe_classifier.py
