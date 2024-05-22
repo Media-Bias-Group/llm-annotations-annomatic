@@ -113,7 +113,7 @@ class BaseExplainer(ABC):
         # average the attention scores for each token
         df = pd.DataFrame({'attribution':token2att,'count':counter})
         df['attribution'] = df['attribution']/df['count']
-        df.to_csv('token_attributions.csv')
+        df.to_csv(f"{self.model_checkpoint.split('/')[1]}.csv")
 
     def create_wordcloud_text(self):
         """Create long string of text from the list of tokens by weighting them by their number
