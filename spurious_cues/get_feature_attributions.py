@@ -3,8 +3,9 @@ from spurious_cues.explainer.lime_explainer import LimeExplainer
 
 # load model and dataset
 magpie = "mediabiasgroup/magpie-babe-ft"
-model_checkpoint = "mediabiasgroup/babe-v3-roberta-fully-trained"
-dataset = "mediabiasgroup/BABE-v3"
+synth = "mediabiasgroup/roberta-anno-lexical-ft"
+
+dataset = "mediabiasgroup/BABE"
 
 # explain feature attributions
 ann = LimeExplainer(model_checkpoint, dataset)
