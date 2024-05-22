@@ -1,12 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=testing-train
+#SBATCH --job-name=spurious-cues-analysis
 #SBATCH --output=testing.out
 #SBATCH --error=err_testing.err
 #SBATCH -p kisski
 #SBATCH -t 00:20:00
 #SBATCH -G A100:1
 #SBATCH --mem=40GB
-#SBATCH --job-name=testing-train
 #SBATCH -C inet
 
 PROJECT_PATH=/user/spinde/u11191/llm-annotations
@@ -26,5 +25,6 @@ cd "$PROJECT_PATH"
 export PYTHONPATH=$PYTHONPATH:$PROJECT_PATH
 export TOKENIZERS_PARALLELISM=true
 # export WANDB_DISABLE_SERVICE=true
+
 echo "Running the python script"
 python -u evaluation/train_final_babe_classifier.py

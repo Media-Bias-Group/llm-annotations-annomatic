@@ -35,7 +35,7 @@ class BaseExplainer(ABC):
         """
         self.model_checkpoint = model_checkpoint
         self.split = split
-        self.dataset = load_dataset(dataset)[self.split].to_pandas()[:10]
+        self.dataset = load_dataset(dataset)[self.split].to_pandas()
         self.tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
         self.model = AutoModelForSequenceClassification.from_pretrained(
             model_checkpoint,
