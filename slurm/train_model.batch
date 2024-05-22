@@ -4,11 +4,7 @@ echo $SHELL
 
 #SBATCH --job-name=tomas-train
 #SBATCH -n 10
-<<<<<<< HEAD:slurm/train_model.batch
 #SBATCH -G 1
-=======
-#SBATCH -G A100:1
->>>>>>> refs/remotes/origin/spurious-cues:slurm/train_model.sbatch
 #SBATCH --nodes=1
 #SBATCH --mem=40GB
 #SBATCH --time=0-00:20:00
