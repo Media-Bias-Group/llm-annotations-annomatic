@@ -8,7 +8,7 @@ synth = "mediabiasgroup/roberta-anno-lexical-ft"
 dataset = "mediabiasgroup/BABE"
 
 # explain feature attributions
-ann = LimeExplainer(model_checkpoint, dataset)
+ann = LimeExplainer(magpie, dataset,split='test')
 ann.explain_dataset(class_=1)
 
 # visualize feature attributions
