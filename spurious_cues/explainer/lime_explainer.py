@@ -6,8 +6,8 @@ from transformers import pipeline
 import numpy as np
 
 class LimeExplainer(BaseExplainer):
-    def __init__(self, model_checkpoint: str, dataset: str, top_k=5):
-        super().__init__(model_checkpoint, dataset, top_k)
+    def __init__(self, model_checkpoint: str, dataset: str, top_k=5,split='train'):
+        super().__init__(model_checkpoint, dataset, top_k,split)
         self.text_explainer = LimeTextExplainer(class_names=self.class_names)
         self.hf_predictor =  pipeline("text-classification", model=model_checkpoint)
 

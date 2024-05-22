@@ -7,6 +7,7 @@ import pickle
 from tqdm import tqdm
 from spurious_cues.myutils import clean_token_text
 import numpy as np
+import pandas as pd
 
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
@@ -21,6 +22,7 @@ class BaseExplainer(ABC):
         model_checkpoint: str,
         dataset: str,
         top_k=5,
+        split='train',
         class_names=["unbiased", "biased"],
     ):
         """
@@ -32,7 +34,8 @@ class BaseExplainer(ABC):
             top_k (int, optional): The number of top predictions to consider. Defaults to 5.
         """
         self.model_checkpoint = model_checkpoint
-        self.dataset = load_dataset(dataset)["train"].to_pandas()
+        self.split = split
+        self.dataset = load_dataset(dataset)[self.split].to_pandas()[:10]
         self.tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
         self.model = AutoModelForSequenceClassification.from_pretrained(
             model_checkpoint,
@@ -108,24 +111,9 @@ class BaseExplainer(ABC):
                     counter[tok] = 1
 
         # average the attention scores for each token
-        averaged_token2att = {}
-        for key, _ in token2att.items():
-            averaged_token2att[key] = token2att[key] / counter[key]
-
-        # save to file
-        with open(
-            f"data/{class_str}_attributions/token2att_{class_str}.pkl",
-            "wb",
-        ) as f:
-            pickle.dump(averaged_token2att, f)
-        with open(
-            f"data/{class_str}_attributions/counter_{class_str}.pkl",
-            "wb",
-        ) as f:
-            pickle.dump(counter, f)
-
-        self.token2att = averaged_token2att
-        self.counter = counter
+        df = pd.DataFrame({'attribution':token2att,'count':counter})
+        df['attribution'] = df['attribution']/df['count']
+        df.to_csv('token_attributions.csv')
 
     def create_wordcloud_text(self):
         """Create long string of text from the list of tokens by weighting them by their number
