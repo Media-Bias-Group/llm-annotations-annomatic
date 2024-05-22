@@ -2,14 +2,15 @@
 from spurious_cues.explainer.lime_explainer import LimeExplainer
 
 # load model and dataset
-magpie = "mediabiasgroup/magpie-babe-ft"
+babe_base = "mediabiasgroup/babe-base-annomatic"
+magpie = "mediabiasgroup/magpie-annomatic"
 synth = "mediabiasgroup/roberta-anno-lexical-ft"
 
 dataset = "mediabiasgroup/BABE"
 
 # explain feature attributions
-ann = LimeExplainer(magpie, dataset,split='test')
+ann = LimeExplainer(babe_base, dataset,split='test')
 ann.explain_dataset(class_=1)
 
 # visualize feature attributions
-ann.get_wordcloud(silhouette_path="data/figures/silh1.jpg")
+# ann.get_wordcloud(silhouette_path="data/figures/silh1.jpg")
