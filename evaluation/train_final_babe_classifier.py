@@ -25,41 +25,40 @@ from sklearn.model_selection import train_test_split
 
 
 # %% warning surpress
-transformers.logging.set_verbosity(transformers.logging.ERROR)
-logging.disable(logging.ERROR)
-warnings.filterwarnings("ignore", category=UserWarning)
+# transformers.logging.set_verbosity(transformers.logging.ERROR)
+# logging.disable(logging.ERROR)
+# warnings.filterwarnings("ignore", category=UserWarning)
 
 
 # %% definitions
-base_model = "roberta-base"
-magpie = "mediabiasgroup/magpie-pt"
+# model_checkpoint = "roberta-base"
+model_checkpoint = "mediabiasgroup/magpie-pt"
 device = (
     torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 )
 
 # %% prepare model & data
+print("Loading dataset.")
 anno_lex = load_dataset("mediabiasgroup/BABE")
 
-
+print("Loading model.")
 model = AutoModelForSequenceClassification.from_pretrained(
-    base_model,
+    model_checkpoint,
     num_labels=2,
 )
-tokenizer = AutoTokenizer.from_pretrained(base_model)
+tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
 
 # %% prepare train/dev
 train_, dev_ = train_test_split(
-    anno_lex['train'],
+    anno_lex['train'].to_pandas(),
     test_size=0.1,
     stratify=anno_lex['train']['label'],
     random_state=42,
 )
 
 # %% tokenize data
-
-
 tok = tokenizer(
     list(train_['text']),
     truncation=True,
@@ -71,7 +70,7 @@ anno_lex_train_t = Dataset.from_dict(
     {
         "input_ids": tok["input_ids"],
         "attention_mask": tok["attention_mask"],
-        "label": train_["label"],
+        "label": train_["label"].tolist(),
     },
 )
 
@@ -86,14 +85,15 @@ anno_lex_dev_t = Dataset.from_dict(
     {
         "input_ids": tok["input_ids"],
         "attention_mask": tok["attention_mask"],
-        "label": dev_["label"],
+        "label": dev_["label"].tolist(),
     },
 )
 
 
 
 # %%
-wandb.init(entity="media-bias-group", project="annomatic_dataset")
+print("Initializing wandb.")
+wandb.init(entity="media-bias-group", project="annomatic-training")
 # set_random_seed()
 
 training_args = TrainingArguments(
@@ -104,8 +104,8 @@ training_args = TrainingArguments(
     num_train_epochs=3,
     save_total_limit=3,
     evaluation_strategy="steps",
-    logging_steps=50,
-    eval_steps=50,
+    logging_steps=5,
+    eval_steps=5,
     save_steps=50,
     disable_tqdm=False,
     weight_decay=0.05,
@@ -133,7 +133,7 @@ trainer = Trainer(
     ],
 )
 
-
+print("Training.")
 trainer.train()
 # %%
 eval_dataloader = DataLoader(
