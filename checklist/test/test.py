@@ -10,5 +10,5 @@ class BaseTest(ABC):
         pass
 
     def test(self,model):
-        if 
+        # if data not available, prepare test data
         pass
