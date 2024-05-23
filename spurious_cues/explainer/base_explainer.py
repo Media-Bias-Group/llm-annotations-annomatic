@@ -9,9 +9,9 @@ from spurious_cues.myutils import clean_token_text
 import numpy as np
 import pandas as pd
 
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
-from PIL import Image
+# from wordcloud import WordCloud
+# import matplotlib.pyplot as plt
+# from PIL import Image
 
 
 class BaseExplainer(ABC):
@@ -113,45 +113,45 @@ class BaseExplainer(ABC):
         # average the attention scores for each token
         df = pd.DataFrame({'attribution':token2att,'count':counter})
         df['attribution'] = df['attribution']/df['count']
-        df.to_csv(f"{self.model_checkpoint.split('/')[1]}.csv")
+        df.to_csv(f"basil_{self.model_checkpoint.split('/')[1]}.csv")
 
-    def create_wordcloud_text(self):
-        """Create long string of text from the list of tokens by weighting them by their number
-        of occurances and the average attention weight."""
-        tokens = list(self.token2att.keys())
+    # def create_wordcloud_text(self):
+    #     """Create long string of text from the list of tokens by weighting them by their number
+    #     of occurances and the average attention weight."""
+    #     tokens = list(self.token2att.keys())
 
-        token_str_list = []
+    #     token_str_list = []
 
-        for token in tokens:
-            # final_count = int(self.token2att[token]*self.counter[token])
-            final_count = int(self.token2att[token] * 1000)
-            token_str_list.extend([token] * final_count)
+    #     for token in tokens:
+    #         # final_count = int(self.token2att[token]*self.counter[token])
+    #         final_count = int(self.token2att[token] * 1000)
+    #         token_str_list.extend([token] * final_count)
 
-        # shuffle prevents words from being grouped together by wordcloud
-        np.random.shuffle(token_str_list)
-        return " ".join(token_str_list)
+    #     # shuffle prevents words from being grouped together by wordcloud
+    #     np.random.shuffle(token_str_list)
+    #     return " ".join(token_str_list)
 
-    def get_wordcloud(self, silhouette_path=None):
-        """Generate wordcloud from the list of tokens."""
-        mask = (
-            np.array(Image.open(silhouette_path)) if silhouette_path else None
-        )
-        color = "Greens" if self.last_explained_class == 0 else "Reds"
-        wc = WordCloud(
-            width=1600,
-            height=800,
-            background_color="white",
-            mask=mask,
-            colormap=color,
-        )
-        wordcloud = wc.generate(self.create_wordcloud_text())
+    # def get_wordcloud(self, silhouette_path=None):
+    #     """Generate wordcloud from the list of tokens."""
+    #     mask = (
+    #         np.array(Image.open(silhouette_path)) if silhouette_path else None
+    #     )
+    #     color = "Greens" if self.last_explained_class == 0 else "Reds"
+    #     wc = WordCloud(
+    #         width=1600,
+    #         height=800,
+    #         background_color="white",
+    #         mask=mask,
+    #         colormap=color,
+    #     )
+    #     wordcloud = wc.generate(self.create_wordcloud_text())
 
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wordcloud, interpolation="bilinear")
-        plt.axis("off")  # Hide the axes
-        class_str = self.class_names[self.last_explained_class]
-        plt.savefig(
-            f"data/figures/{class_str}.png",
-            dpi=500,
-            bbox_inches="tight",
-        )
+    #     plt.figure(figsize=(10, 5))
+    #     plt.imshow(wordcloud, interpolation="bilinear")
+    #     plt.axis("off")  # Hide the axes
+    #     class_str = self.class_names[self.last_explained_class]
+    #     plt.savefig(
+    #         f"data/figures/{class_str}.png",
+    #         dpi=500,
+    #         bbox_inches="tight",
+    #     )
