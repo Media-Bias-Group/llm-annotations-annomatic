@@ -10,4 +10,5 @@ class BaseTest(ABC):
         pass
 
     def test(self,model):
+        if 
         pass
