@@ -1,12 +1,11 @@
 ## MFT: 
- - [ ] Short neutral sentences. - https://huggingface.co/datasets/truthful_qa?row=81, https://huggingface.co/datasets/truthful_qa?row=81
- - [ ] Short sentences with loaded words
+- [x] Short neutral sentences.
 
 ## INV:
-- [ ] Minority groups shouldn't change the label
-- [ ] Replacing person with "That person"
+- [x] Minority groups shouldn't change the label
+- [ ] Replacing person with pronouns shouldn't change labels
 - [ ] Replacing locations shouldn't change the label
 
-
 ## DIR:
+- [ ] adding obviously in front neutral should change labels
 - [ ] adding biased adverbs should change the label of neutral
