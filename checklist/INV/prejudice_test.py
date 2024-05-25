@@ -1,19 +1,17 @@
 from checklist import BaseTest
 import sqlite3
 import pandas as pd
-from transformers import pipeline
-from sklearn.metrics import f1_score,matthews_corrcoef,recall_score
+from transformers import pipeline, DataCollatorWithPadding
+from sklearn.metrics import f1_score, matthews_corrcoef, recall_score
+import torch
+from torch.utils.data import DataLoader
+from datasets import Dataset
 
 
 class PrejudiceTest(BaseTest):
 
     def __init__(self, data_path):
         super().__init__(data_path)
-
-
-    def initialize_model(self, model: str):
-        self.model = pipeline("text-classification", model=model,batch_size=8)
-
 
     def create_category_df(
         self, category: str, df: pd.DataFrame, template: pd.DataFrame
@@ -82,20 +80,19 @@ class PrejudiceTest(BaseTest):
 
         self.test_data = pd.concat(category_dfs)
 
-    
-    def compute_metrics(self,y_true,y_preds):
-        return matthews_corrcoef(y_true,y_preds)
-
+    def compute_metrics(self, y_true, y_preds):
+        return matthews_corrcoef(y_true, y_preds)
 
     def test(self):
         print("Running model on the test...")
-        preds =  self.model(self.test_data['text'].tolist())
-        self.test_data['preds'] = [int(pred['label'].split('_')[1]) for pred in preds]
-        self.test_data.to_csv("checklist/INV/output.csv",index=False)
-        print(self.compute_metrics(self.test_data['label'],self.test_data['preds']))
-
-
+        self.test_data["preds"] = self.make_predictions()
+        self.test_data.to_csv("checklist/INV/prejudice_out.csv", index=False)
+        print(
+            self.compute_metrics(
+                self.test_data["label"], self.test_data["preds"]
+            )
+        )
 
 
 pt = PrejudiceTest("checklist/data")
-pt.execute('mediabiasgroup/magpie-annomatic')
+pt.execute("mediabiasgroup/roberta-anno-lexical-ft")
