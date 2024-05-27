@@ -7,5 +7,4 @@
 - [ ] Replacing locations shouldn't change the label
 
 ## DIR:
-- [ ] adding obviously in front neutral should change labels
 - [ ] adding biased adverbs should change the label of neutral
