@@ -54,7 +54,7 @@ class LoadedTest(BaseTest):
                 else:
                     # Place the biased adjective before the noun
                     new_tokens.insert(len(new_tokens) - 1, adj)
-                injected = True
+                # injected = True
 
         # Join the tokens to form the modified sentence
         modified_sentence = " ".join(new_tokens)
@@ -93,7 +93,7 @@ class LoadedTest(BaseTest):
                     adv = random.choice(adverbs)
                     # Insert the biased adverb immediately after the verb
                     new_tokens.append(adv)
-                    injected = True
+                    # injected = True
 
         # Join the tokens to form the modified sentence
         modified_sentence = " ".join(new_tokens)
@@ -154,17 +154,13 @@ class LoadedTest(BaseTest):
             self.test_data, on="text_orig"
         )
 
+        # we added the loaded words, all labels SHOULD be now biased
         self.test_data["label"] = [BIASED] * len(self.test_data["label"])
         self.test_data["preds"] = self.make_predictions(
             target_col="text_loaded"
         )
-        self.test_data.to_csv("checklist/DIR/loaded_out.csv", index=False)
         print(
             self.compute_metrics(
                 self.test_data["label"], self.test_data["preds"]
             )
         )
-
-
-pt = LoadedTest("checklist/data")
-pt.execute("mediabiasgroup/babe-base-annomatic")

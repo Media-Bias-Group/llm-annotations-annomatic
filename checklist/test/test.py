@@ -9,6 +9,8 @@ from torch.utils.data import DataLoader
 import torch
 from sklearn.metrics import matthews_corrcoef
 from tqdm import tqdm
+from checklist.utils import get_model_name
+
 
 class BaseTest(ABC):
     """
@@ -26,7 +28,7 @@ class BaseTest(ABC):
         self.data_path = data_path
         self.test_data = None
 
-    def make_predictions(self,data=None,target_col:str="text"):
+    def make_predictions(self, data=None, target_col: str = "text"):
         """
         Generates predictions for the test data using the trained model.
 
@@ -71,7 +73,7 @@ class BaseTest(ABC):
         """
         return matthews_corrcoef(y_true, y_preds)
 
-    def initialize_model(self, model: str):
+    def initialize_model(self, model_checkpoint: str):
         """
         Initializes the model for sequence classification.
 
@@ -79,8 +81,11 @@ class BaseTest(ABC):
             model (str): The name or path of the pre-trained model.
 
         """
-        self.model = AutoModelForSequenceClassification.from_pretrained(model)
-        self.tokenizer = AutoTokenizer.from_pretrained(model)
+        self.model = AutoModelForSequenceClassification.from_pretrained(
+            model_checkpoint
+        )
+        self.tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)
+
         self.device = (
             torch.device("cuda:0")
             if torch.cuda.is_available()
@@ -111,7 +116,7 @@ class BaseTest(ABC):
         """
         raise NotImplementedError
 
-    def execute(self, model: str):
+    def execute(self, model_checkpoint: str):
         """
         Executes the test on the given model.
 
@@ -124,8 +129,12 @@ class BaseTest(ABC):
         if self.test_data is None:
             self.prepare_test_data()
 
-        self.initialize_model(model)
+        self.initialize_model(model_checkpoint=model_checkpoint)
 
         result = self.test()
+        self.test_data.to_csv(
+            f"{self.data_path}/out/{self.__class__.__name__.lower()}_{get_model_name(model_checkpoint)}.csv",
+            index=False,
+        )
 
         return result

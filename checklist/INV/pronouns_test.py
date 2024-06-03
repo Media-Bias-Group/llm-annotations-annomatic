@@ -57,17 +57,13 @@ class PronounsTest(BaseTest):
 
     def test(self):
         print("Running model on the test...")
-        self.test_data["preds_orig"] = self.make_predictions(target_col="text_orig")
-        self.test_data["preds_ner_free"] = self.make_predictions(target_col="text_ner_free")
+        self.test_data["preds"] = self.make_predictions(target_col="text_orig")
+        self.test_data = self.test_data[self.test_data.preds == self.test_data.label]
+        self.test_data["preds"] = self.make_predictions(target_col="text_ner_free")
         # only keep correct predictions in the first place
-        self.test_data = self.test_data[self.test_data.preds_orig == self.test_data.label]
-        self.test_data.to_csv("checklist/INV/pronouns_out.csv", index=False)
         print(
             self.compute_metrics(
-                self.test_data["label"], self.test_data["preds_ner_free"]
+                self.test_data["label"], self.test_data["preds"]
             )
         )
 
-
-pt = PronounsTest("checklist/data")
-pt.execute("mediabiasgroup/babe-base-annomatic")

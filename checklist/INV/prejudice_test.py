@@ -82,13 +82,8 @@ class PrejudiceTest(BaseTest):
     def test(self):
         print("Running model on the test...")
         self.test_data["preds"] = self.make_predictions()
-        self.test_data.to_csv("checklist/INV/prejudice_out.csv", index=False)
         print(
             self.compute_metrics(
                 self.test_data["label"], self.test_data["preds"]
             )
         )
-
-
-pt = PrejudiceTest("checklist/data")
-pt.execute("mediabiasgroup/roberta-anno-lexical-ft")

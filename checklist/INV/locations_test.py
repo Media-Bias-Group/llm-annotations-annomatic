@@ -110,13 +110,8 @@ class LocationsTest(BaseTest):
         )
 
         self.test_data["preds"] = self.make_predictions(target_col="text_loc")
-        self.test_data.to_csv("checklist/INV/locations_out.csv", index=False)
         print(
             self.compute_metrics(
                 self.test_data["label"], self.test_data["preds"]
             )
         )
-
-
-pt = LocationsTest("checklist/data")
-pt.execute("mediabiasgroup/roberta-anno-lexical-ft")
