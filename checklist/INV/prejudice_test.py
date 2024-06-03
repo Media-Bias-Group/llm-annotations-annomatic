@@ -1,11 +1,7 @@
 from checklist import BaseTest
 import sqlite3
 import pandas as pd
-from transformers import pipeline, DataCollatorWithPadding
-from sklearn.metrics import f1_score, matthews_corrcoef, recall_score
-import torch
-from torch.utils.data import DataLoader
-from datasets import Dataset
+from sklearn.metrics import matthews_corrcoef
 
 
 class PrejudiceTest(BaseTest):
