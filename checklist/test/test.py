@@ -26,15 +26,17 @@ class BaseTest(ABC):
         self.data_path = data_path
         self.test_data = None
 
-    def make_predictions(self):
+    def make_predictions(self,data=None,target_col:str="text"):
         """
         Generates predictions for the test data using the trained model.
 
         Returns:
             predictions (list): List of predicted labels for the test data.
         """
+        if data is None:
+            data = self.test_data
         tok = self.tokenizer(
-            list(self.test_data["text"]),
+            list(data[target_col]),
             truncation=True,
             padding=True,
             max_length=128,
