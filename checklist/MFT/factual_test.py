@@ -37,13 +37,8 @@ class FactualTest(BaseTest):
     def test(self):
         print("Running model on the test...")
         self.test_data["preds"] = self.make_predictions()
-        self.test_data.to_csv("checklist/MFT/factual_out.csv", index=False)
         print(
             self.compute_metrics(
                 self.test_data["label"], self.test_data["preds"]
             )
         )
-
-
-pt = FactualTest("checklist/data")
-pt.execute("mediabiasgroup/babe-base-annomatic")
