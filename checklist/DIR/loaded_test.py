@@ -1,14 +1,9 @@
 from checklist import BaseTest
-import sqlite3
 import pandas as pd
-from transformers import pipeline
 from sklearn.metrics import (
-    f1_score,
-    matthews_corrcoef,
-    recall_score,
     accuracy_score,
 )
-from datasets import load_dataset, Dataset
+from datasets import load_dataset
 import spacy
 import random
 from tqdm import tqdm

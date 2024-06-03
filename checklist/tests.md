@@ -3,8 +3,8 @@
 
 ## INV:
 - [x] Minority groups shouldn't change the label
-- [ ] Replacing person with pronouns shouldn't change labels
-- [ ] Replacing locations shouldn't change the label
+- [x] Replacing person with pronouns shouldn't change labels
+- [x] Replacing locations shouldn't change the label
 
 ## DIR:
-- [ ] adding biased adverbs should change the label of neutral
+- [x] adding biased adverbs should change the label of neutral
