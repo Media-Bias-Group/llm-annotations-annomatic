@@ -20,7 +20,6 @@ class FactualTest(BaseTest):
         and storing them in a dictionary.
         """
 
-        print("Preparing test data...")
         d1 = load_dataset("notrichardren/easy_qa")["validation"].to_pandas()
         d2 = load_dataset("truthful_qa", "generation")[
             "validation"
@@ -35,7 +34,6 @@ class FactualTest(BaseTest):
         )
 
     def test(self):
-        print("Running model on the test...")
         self.test_data["preds"] = self.make_predictions()
         print(
             self.compute_metrics(

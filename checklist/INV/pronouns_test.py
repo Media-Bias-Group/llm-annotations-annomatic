@@ -45,7 +45,6 @@ class PronounsTest(BaseTest):
         and storing them in a dictionary.
         """
 
-        print("Preparing test data...")
         d = load_dataset("mediabiasgroup/BABE")["test"]
         texts = d["text"]
         print("Replacing Named Entities...")
@@ -56,11 +55,11 @@ class PronounsTest(BaseTest):
         )
 
     def test(self):
-        print("Running model on the test...")
+        # first only evaluate on original test data, and keep only the instances
+        # where model is correct in the first place
         self.test_data["preds"] = self.make_predictions(target_col="text_orig")
         self.test_data = self.test_data[self.test_data.preds == self.test_data.label]
         self.test_data["preds"] = self.make_predictions(target_col="text_ner_free")
-        # only keep correct predictions in the first place
         print(
             self.compute_metrics(
                 self.test_data["label"], self.test_data["preds"]

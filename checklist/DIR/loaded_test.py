@@ -13,7 +13,7 @@ UNBIASED = 0
 
 
 class LoadedTest(BaseTest):
-    def __init__(self, data_path, k=1):
+    def __init__(self, data_path, k=10):
         super().__init__(data_path)
         self.pos_pipe = spacy.load("en_core_web_sm")
         self.k = k
@@ -106,7 +106,6 @@ class LoadedTest(BaseTest):
         and storing them in a dictionary.
         """
 
-        print("Preparing test data...")
         lexicon = load_dataset("mediabiasgroup/bias-lexicon")[
             "train"
         ].to_pandas()
@@ -144,17 +143,21 @@ class LoadedTest(BaseTest):
         )
 
     def test(self):
-        print("Running model on the test...")
+        # first only evaluate on original test data, and keep only the instances
+        # where model is correct
         orig_data = self.test_data[~self.test_data.text_orig.duplicated()]
         orig_data["preds_orig"] = self.make_predictions(
             target_col="text_orig", data=orig_data
         )
         orig_data = orig_data[orig_data.preds_orig == orig_data.label]
+
+        # out of full test_data filter out instances where model was correct
+        # in the first place
         self.test_data = orig_data[["text_orig"]].merge(
             self.test_data, on="text_orig"
         )
 
-        # we added the loaded words, all labels SHOULD be now biased
+        # we added the loaded words, therefore all labels are expected to change to BIASED
         self.test_data["label"] = [BIASED] * len(self.test_data["label"])
         self.test_data["preds"] = self.make_predictions(
             target_col="text_loaded"
