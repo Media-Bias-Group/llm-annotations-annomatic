@@ -11,7 +11,7 @@ import random
 
 class LocationsTest(BaseTest):
 
-    def __init__(self, data_path, k=5):
+    def __init__(self, data_path, k=10):
         super().__init__(data_path)
         self.pos_pipe = spacy.load("en_core_web_sm")
         self.locations = None
@@ -68,7 +68,6 @@ class LocationsTest(BaseTest):
         Prepares the test data by retrieving tables from the 'minorities.db' database
         and storing them in a dictionary.
         """
-        print("Preparing test data...")
         d = load_dataset("mediabiasgroup/BABE")["test"].to_pandas()
 
         print("Extract all locations...")
@@ -99,12 +98,16 @@ class LocationsTest(BaseTest):
         )
 
     def test(self):
-        print("Running model on the test...")
+        # first only evaluate on original test data, and keep only the instances
+        # where model is correct
         orig_data = self.test_data[~self.test_data.text_orig.duplicated()]
         orig_data["preds_orig"] = self.make_predictions(
             target_col="text_orig", data=orig_data
         )
         orig_data = orig_data[orig_data.preds_orig == orig_data.label]
+
+        # out of full test_data filter out instances where model was correct
+        # in the first place
         self.test_data = orig_data[["text_orig"]].merge(
             self.test_data, on="text_orig"
         )

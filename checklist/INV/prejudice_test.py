@@ -55,7 +55,6 @@ class PrejudiceTest(BaseTest):
         and storing them in a dictionary.
         """
 
-        print("Preparing test data...")
         db = sqlite3.connect(f"{self.data_path}/minorities.db")
         query = "SELECT name FROM sqlite_master WHERE type='table';"
         tables = pd.read_sql_query(query, db)["name"].tolist()
@@ -80,10 +79,10 @@ class PrejudiceTest(BaseTest):
         return matthews_corrcoef(y_true, y_preds)
 
     def test(self):
-        print("Running model on the test...")
         self.test_data["preds"] = self.make_predictions()
         print(
             self.compute_metrics(
                 self.test_data["label"], self.test_data["preds"]
             )
         )
+ 

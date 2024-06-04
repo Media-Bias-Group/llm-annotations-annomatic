@@ -127,11 +127,14 @@ class BaseTest(ABC):
             The result of the test.
         """
         if self.test_data is None:
+            print("Preparing test data...")
             self.prepare_test_data()
 
         self.initialize_model(model_checkpoint=model_checkpoint)
 
+        print("Running model on the test...")
         result = self.test()
+        print(f"Saving output to {self.data_path}/out/{self.__class__.__name__.lower()}_{get_model_name(model_checkpoint)}.csv")
         self.test_data.to_csv(
             f"{self.data_path}/out/{self.__class__.__name__.lower()}_{get_model_name(model_checkpoint)}.csv",
             index=False,
