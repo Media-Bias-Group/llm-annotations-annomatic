@@ -50,14 +50,14 @@ class LocationsTest(BaseTest):
         """
 
         text_ = self.pos_pipe(text)
-        replaced_text = text
+        orig_text = text
         texts_ = []
 
         for ent in text_.ents:
             if ent.label_ == "GPE" or ent.label_ == "LOC":
                 entity = ent.text
                 for _ in range(self.k):
-                    replaced_text = replaced_text.replace(
+                    replaced_text = orig_text.replace(
                         entity, random.choice(self.locations)
                     )
                     texts_.append(replaced_text)
@@ -118,3 +118,7 @@ class LocationsTest(BaseTest):
                 self.test_data["label"], self.test_data["preds"]
             )
         )
+
+
+t = LocationsTest("checklist/data")
+t.execute("mediabiasgroup/magpie-annomatic")
