@@ -75,14 +75,7 @@ class PrejudiceTest(BaseTest):
 
         self.test_data = pd.concat(category_dfs)
 
-    def compute_metrics(self, y_true, y_preds):
-        return matthews_corrcoef(y_true, y_preds)
 
-    def test(self):
-        self.test_data["preds"] = self.make_predictions()
-        print(
-            self.compute_metrics(
-                self.test_data["label"], self.test_data["preds"]
-            )
-        )
- 
+    def test(self,test_data):
+        test_data["preds"] = self.make_predictions(data=test_data)
+        return test_data

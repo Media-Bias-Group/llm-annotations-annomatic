@@ -11,9 +11,6 @@ class FactualTest(BaseTest):
     def __init__(self, data_path):
         super().__init__(data_path)
 
-    def compute_metrics(self, y_true, y_preds):
-        return accuracy_score(y_true, y_preds)
-
     def prepare_test_data(self):
         """
         Prepares the test data by retrieving tables from the 'minorities.db' database
@@ -33,10 +30,7 @@ class FactualTest(BaseTest):
             {"text": texts, "label": [0] * len(texts)}
         )
 
-    def test(self):
-        self.test_data["preds"] = self.make_predictions()
-        print(
-            self.compute_metrics(
-                self.test_data["label"], self.test_data["preds"]
-            )
-        )
+    def test(self, test_data):
+        test_data["preds"] = self.make_predictions(data=test_data)
+
+        return test_data
