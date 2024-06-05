@@ -3,7 +3,7 @@
 #SBATCH --output=testing.out
 #SBATCH --error=err_testing.err
 #SBATCH -p kisski
-#SBATCH -t 00:20:00
+#SBATCH -t 00:30:00
 #SBATCH -G A100:1
 #SBATCH --mem=40GB
 #SBATCH -C inet
