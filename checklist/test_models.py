@@ -17,9 +17,8 @@ test_list = [
 ]
 
 for test in test_list:
-    print(f"Running {test.__name__} on all models...")
-    t = test("checklist/data")
-
     for model in model_list:
+        print(f"Running {test.__name__} on all models...")
         print(f"running on {model} ...")
+        t = test("checklist/data")
         t.execute(model)

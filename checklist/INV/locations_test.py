@@ -119,6 +119,3 @@ class LocationsTest(BaseTest):
             )
         )
 
-
-t = LocationsTest("checklist/data")
-t.execute("mediabiasgroup/magpie-annomatic")
