@@ -114,12 +114,12 @@ class LoadedTest(BaseTest):
         adjectives = lexicon[lexicon.pos == "ADJ"]["word"].tolist()
         adverbs = lexicon[lexicon.pos == "ADV"]["word"].tolist()
         df = df[df.label == 0]  # only neutral
-        print("Replacing Named Entities...")
+        print("Injecting biased adjectives and adverbs...")
 
         texts_orig = []
         texts_loaded = []
         labels = []
-        for _, row in tqdm(df.iterrows()):
+        for _, row in tqdm(df.iterrows(),total=len(df)):
             orig_text = row["text"]
             new_texts_adj = [
                 self.inject_biased_adjective(orig_text, adjectives)
@@ -150,7 +150,7 @@ class LoadedTest(BaseTest):
             target_col="text_orig", data=orig_data
         )
         orig_data = orig_data[orig_data.preds_orig == orig_data.label]
-
+        print(len(orig_data))
         # out of full test_data filter out instances where model was correct
         # in the first place
         self.test_data = orig_data[["text_orig"]].merge(
@@ -167,3 +167,6 @@ class LoadedTest(BaseTest):
                 self.test_data["label"], self.test_data["preds"]
             )
         )
+
+t = LoadedTest("checklist/data")
+t.execute("mediabiasgroup/roberta-anno-lexical-ft")
