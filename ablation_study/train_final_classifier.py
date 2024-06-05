@@ -34,6 +34,8 @@ device = (
 train = pd.read_parquet('ablation_study/data/anno-lexical-train-balanced.parquet')
 dev = pd.read_parquet('ablation_study/data/anno-lexical-dev-balanced.parquet')
 test = pd.read_parquet('annomatic-dataset/data/training/anno-lexical-test.parquet')
+babe_test = load_dataset("mediabiasgroup/BABE")["test"]
+basil_test = load_dataset("horychtom/experiments")["train"]
 
 # prep model
 model = AutoModelForSequenceClassification.from_pretrained(
@@ -76,7 +78,7 @@ anno_lex_dev_t = Dataset.from_dict(
 )
 
 # test
-tok = tokenizer(
+tok_annolex = tokenizer(
     test['text'].tolist(),
     truncation=True,
     padding=True,
@@ -85,11 +87,44 @@ tok = tokenizer(
 )
 anno_lex_test_t = Dataset.from_dict(
     {
-        "input_ids": tok["input_ids"],
-        "attention_mask": tok["attention_mask"],
+        "input_ids": tok_annolex["input_ids"],
+        "attention_mask": tok_annolex["attention_mask"],
         "label": test['label'].tolist(),
     },
 )
+
+# test babe
+tok_babe = tokenizer(
+    babe_test['text'],
+    truncation=True,
+    padding=True,
+    max_length=128,
+    return_tensors="pt",
+)
+babe_test_t = Dataset.from_dict(
+    {
+        "input_ids": tok_babe["input_ids"],
+        "attention_mask": tok_babe["attention_mask"],
+        "label": babe_test['label'],
+    },
+)
+
+# test basil
+tok_basil = tokenizer(
+    basil_test['text'],
+    truncation=True,
+    padding=True,
+    max_length=128,
+    return_tensors="pt",
+)
+basil_test_t = Dataset.from_dict(
+    {
+        "input_ids": tok_basil["input_ids"],
+        "attention_mask": tok_basil["attention_mask"],
+        "label": basil_test['label'],
+    },
+)
+
 
 
 # %%
@@ -135,13 +170,37 @@ trainer = Trainer(
 
 
 trainer.train()
-# test
-test_dataloader = DataLoader(
+model.push_to_hub("mediabiasgroup/ablation-balanced")
+
+# test anno_lex
+test_dataloader_annolex = DataLoader(
     anno_lex_test_t,
     batch_size=32,
     collate_fn=data_collator,
 )
-model.push_to_hub("mediabiasgroup/ablation-balanced")
+result_dict = compute_metrics(test_dataloader_annolex, model)
+result_dict = {f"annolex_{key}": value for key, value in result_dict.items()}
+wandb.log(result_dict)
 
-wandb.log(compute_metrics(test_dataloader, model))
+# test babe
+test_dataloader_babe = DataLoader(
+    babe_test_t,
+    batch_size=32,
+    collate_fn=data_collator,
+)
+result_dict = compute_metrics(test_dataloader_babe, model)
+result_dict = {f"babe_{key}": value for key, value in result_dict.items()}
+wandb.log(result_dict)
+
+# test basil
+test_dataloader_basil = DataLoader(
+    basil_test_t,
+    batch_size=32,
+    collate_fn=data_collator,
+)
+result_dict = compute_metrics(test_dataloader_basil, model)
+result_dict = {f"basil_{key}": value for key, value in result_dict.items()}
+wandb.log(result_dict)
+
+
 wandb.finish()
