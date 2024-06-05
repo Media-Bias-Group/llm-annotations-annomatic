@@ -46,7 +46,7 @@ class BaseTest(ABC):
         )
         data_collator = DataCollatorWithPadding(tokenizer=self.tokenizer)
         testing_dataloader = DataLoader(
-            Dataset.from_dict(tok), batch_size=8, collate_fn=data_collator
+            Dataset.from_dict(tok), batch_size=32, collate_fn=data_collator
         )
 
         predictions = []
