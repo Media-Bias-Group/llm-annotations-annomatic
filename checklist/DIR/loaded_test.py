@@ -18,9 +18,6 @@ class LoadedTest(BaseTest):
         self.pos_pipe = spacy.load("en_core_web_sm")
         self.k = k
 
-    def compute_metrics(self, y_true, y_preds):
-        return accuracy_score(y_true, y_preds)
-
     def inject_biased_adjective(self, text: str, adjectives):
         """
         Injects a biased adjective into a given text by modifying a suitable noun or noun phrase.
@@ -119,7 +116,7 @@ class LoadedTest(BaseTest):
         texts_orig = []
         texts_loaded = []
         labels = []
-        for _, row in tqdm(df.iterrows(),total=len(df)):
+        for _, row in tqdm(df.iterrows(), total=len(df)):
             orig_text = row["text"]
             new_texts_adj = [
                 self.inject_biased_adjective(orig_text, adjectives)
@@ -142,31 +139,20 @@ class LoadedTest(BaseTest):
             }
         )
 
-    def test(self):
+    def test(self, test_data):
         # first only evaluate on original test data, and keep only the instances
         # where model is correct
-        orig_data = self.test_data[~self.test_data.text_orig.duplicated()]
+        orig_data = test_data[~test_data.text_orig.duplicated()]
         orig_data["preds_orig"] = self.make_predictions(
             target_col="text_orig", data=orig_data
         )
         orig_data = orig_data[orig_data.preds_orig == orig_data.label]
-        print(len(orig_data))
         # out of full test_data filter out instances where model was correct
         # in the first place
-        self.test_data = orig_data[["text_orig"]].merge(
-            self.test_data, on="text_orig"
-        )
+        test_data = orig_data[["text_orig"]].merge(test_data, on="text_orig")
 
         # we added the loaded words, therefore all labels are expected to change to BIASED
-        self.test_data["label"] = [BIASED] * len(self.test_data["label"])
-        self.test_data["preds"] = self.make_predictions(
-            target_col="text_loaded"
-        )
-        print(
-            self.compute_metrics(
-                self.test_data["label"], self.test_data["preds"]
-            )
-        )
+        test_data["label"] = [BIASED] * len(test_data["label"])
+        test_data["preds"] = self.make_predictions(target_col="text_loaded",data=test_data)
 
-t = LoadedTest("checklist/data")
-t.execute("mediabiasgroup/roberta-anno-lexical-ft")
+        return test_data

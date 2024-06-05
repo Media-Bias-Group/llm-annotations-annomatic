@@ -17,9 +17,6 @@ class LocationsTest(BaseTest):
         self.locations = None
         self.k = k
 
-    def compute_metrics(self, y_true, y_preds):
-        return accuracy_score(y_true, y_preds)
-
     def extract_locs(self, texts):
         """
         Create pool of locations by extracting all locations from a list of texts.
@@ -97,10 +94,10 @@ class LocationsTest(BaseTest):
             }
         )
 
-    def test(self):
+    def test(self, test_data):
         # first only evaluate on original test data, and keep only the instances
         # where model is correct
-        orig_data = self.test_data[~self.test_data.text_orig.duplicated()]
+        orig_data = test_data[~test_data.text_orig.duplicated()]
         orig_data["preds_orig"] = self.make_predictions(
             target_col="text_orig", data=orig_data
         )
@@ -108,14 +105,7 @@ class LocationsTest(BaseTest):
 
         # out of full test_data filter out instances where model was correct
         # in the first place
-        self.test_data = orig_data[["text_orig"]].merge(
-            self.test_data, on="text_orig"
-        )
+        test_data = orig_data[["text_orig"]].merge(test_data, on="text_orig")
 
-        self.test_data["preds"] = self.make_predictions(target_col="text_loc")
-        print(
-            self.compute_metrics(
-                self.test_data["label"], self.test_data["preds"]
-            )
-        )
-
+        test_data["preds"] = self.make_predictions(target_col="text_loc",data=test_data)
+        return test_data

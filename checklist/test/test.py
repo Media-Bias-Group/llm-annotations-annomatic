@@ -10,6 +10,7 @@ import torch
 from sklearn.metrics import matthews_corrcoef
 from tqdm import tqdm
 from checklist.utils import get_model_name
+import pandas as pd
 
 
 class BaseTest(ABC):
@@ -104,7 +105,7 @@ class BaseTest(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def test(self):
+    def test(self, test_data) -> pd.DataFrame:
         """
         This method is used to test the given model.
 
@@ -112,7 +113,7 @@ class BaseTest(ABC):
         - model: The model to be tested.
 
         Returns:
-        - None
+        - pd.DataFrame with predictions
         """
         raise NotImplementedError
 
@@ -133,9 +134,11 @@ class BaseTest(ABC):
         self.initialize_model(model_checkpoint=model_checkpoint)
 
         print("Running model on the test...")
-        result = self.test()
-        print(f"Saving output to {self.data_path}/out/{self.__class__.__name__.lower()}_{get_model_name(model_checkpoint)}.csv")
-        self.test_data.to_csv(
+        result = self.test(test_data=self.test_data.copy())
+        print(
+            f"Saving output to {self.data_path}/out/{self.__class__.__name__.lower()}_{get_model_name(model_checkpoint)}.csv"
+        )
+        result.to_csv(
             f"{self.data_path}/out/{self.__class__.__name__.lower()}_{get_model_name(model_checkpoint)}.csv",
             index=False,
         )

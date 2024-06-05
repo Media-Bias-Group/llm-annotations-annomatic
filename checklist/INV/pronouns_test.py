@@ -13,9 +13,6 @@ class PronounsTest(BaseTest):
         super().__init__(data_path)
         self.pos_pipe = spacy.load("en_core_web_sm")
 
-    def compute_metrics(self, y_true, y_preds):
-        return accuracy_score(y_true, y_preds)
-
     def replace_named_entities(self, text):
         doc = self.pos_pipe(text)
         replaced_text = text
@@ -51,18 +48,17 @@ class PronounsTest(BaseTest):
         ner_free_texts = list(map(self.replace_named_entities, texts))
 
         self.test_data = pd.DataFrame.from_dict(
-            {"text_orig": texts,"text_ner_free":ner_free_texts,"label": d["label"]}
+            {
+                "text_orig": texts,
+                "text_ner_free": ner_free_texts,
+                "label": d["label"],
+            }
         )
 
-    def test(self):
+    def test(self, test_data):
         # first only evaluate on original test data, and keep only the instances
         # where model is correct in the first place
-        self.test_data["preds"] = self.make_predictions(target_col="text_orig")
-        self.test_data = self.test_data[self.test_data.preds == self.test_data.label]
-        self.test_data["preds"] = self.make_predictions(target_col="text_ner_free")
-        print(
-            self.compute_metrics(
-                self.test_data["label"], self.test_data["preds"]
-            )
-        )
-
+        test_data["preds"] = self.make_predictions(target_col="text_orig",data=test_data)
+        test_data = test_data[test_data.preds == test_data.label]
+        test_data["preds"] = self.make_predictions(target_col="text_ner_free",data=test_data)
+        return test_data
