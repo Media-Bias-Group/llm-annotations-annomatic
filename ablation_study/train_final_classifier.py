@@ -31,8 +31,8 @@ device = (
 )
 
 # %% prepare model & data
-train = pd.read_parquet('ablation_study/data/anno-lexical-train-left.parquet')
-dev = pd.read_parquet('ablation_study/data/anno-lexical-dev-left.parquet')
+train = pd.read_parquet('ablation_study/data/anno-lexical-train-balanced.parquet')
+dev = pd.read_parquet('ablation_study/data/anno-lexical-dev-balanced.parquet')
 test = pd.read_parquet('annomatic-dataset/data/training/anno-lexical-test.parquet')
 
 # prep model
@@ -99,10 +99,10 @@ set_random_seed()
 training_args = TrainingArguments(
     report_to="wandb",
     output_dir="./checkpoints",
-    per_device_eval_batch_size=32,
+    per_device_eval_batch_size=128,
     per_device_train_batch_size=32,
     num_train_epochs=5,
-    save_total_limit=3,
+    save_total_limit=5,
     evaluation_strategy="steps",
     logging_steps=50,
     eval_steps=10,
@@ -110,7 +110,7 @@ training_args = TrainingArguments(
     disable_tqdm=False,
     weight_decay=0.05,
     learning_rate=2e-5,
-    run_name="left_",
+    run_name="balanced_",
     metric_for_best_model="eval_loss",
     save_strategy="steps",
     load_best_model_at_end=True,
@@ -135,15 +135,13 @@ trainer = Trainer(
 
 
 trainer.train()
-# %%
-eval_dataloader = DataLoader(
+# test
+test_dataloader = DataLoader(
     anno_lex_test_t,
     batch_size=32,
     collate_fn=data_collator,
 )
-print(compute_metrics(eval_dataloader, model))
+model.push_to_hub("mediabiasgroup/ablation-balanced")
 
-model.push_to_hub("mediabiasgroup/ablation-left")
-
-wandb.log(compute_metrics(eval_dataloader, model))
+wandb.log(compute_metrics(test_dataloader, model))
 wandb.finish()
