@@ -7,7 +7,7 @@ import torch
 import transformers
 import wandb
 from datasets import Dataset, load_dataset
-from evaluation.utils import compute_metrics, set_random_seed, wandb_run
+from coreset.utils import compute_metrics, set_random_seed, wandb_run
 from sklearn.model_selection import StratifiedKFold
 from torch.utils.data import DataLoader
 from transformers import (
@@ -29,8 +29,8 @@ base_model = "roberta-base"
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 # %% prepare model & data
-babe = load_dataset("mediabiasgroup/BABE-v3")["train"].to_pandas()
-pool = pd.read_csv("../annomatic-dataset/data/pool/final_pool_with_explanations.csv")
+babe = load_dataset("mediabiasgroup/BABE")["train"].to_pandas()
+pool = load_dataset("mediabiasgroup/BABE-icl-pool")["train"].to_pandas()
 babe = (
     babe.merge(
         pool["text"],
@@ -46,6 +46,10 @@ babe = (
 
 coreset_small = load_dataset("mandlc/anno-lexical-coreset-small-cluster")
 coreset_big = load_dataset("mandlc/anno-lexical-coreset-big-cluster")
+
+coreset_small_train = load_dataset("mandlc/anno-lexical-train-coreset-small-cluster")
+coreset_big_train = load_dataset("mandlc/anno-lexical-train-coreset-big-cluster")
+
 anno_lex = load_dataset("mediabiasgroup/anno-lexical")
 
 
@@ -85,6 +89,35 @@ anno_lex_train_t = pd.DataFrame(
         "label": anno_lex["train"]["label"],
     },
 )
+
+tok = tokenizer(
+    list(coreset_small_train["train"]["text"]),
+    truncation=True,
+    padding=True,
+    max_length=128,
+)
+coreset_small_train_set_t = pd.DataFrame(
+    {
+        "input_ids": tok["input_ids"],
+        "attention_mask": tok["attention_mask"],
+        "label": coreset_small_train["train"]["label"],
+    },
+)
+
+tok = tokenizer(
+    list(coreset_big_train["train"]["text"]),
+    truncation=True,
+    padding=True,
+    max_length=128,
+)
+coreset_big_train_set_t = pd.DataFrame(
+    {
+        "input_ids": tok["input_ids"],
+        "attention_mask": tok["attention_mask"],
+        "label": coreset_big_train["train"]["label"],
+    },
+)
+
 
 tok = tokenizer(
     list(coreset_small["train"]["text"]),
@@ -144,6 +177,10 @@ def run_cv(run_name):
             train_t = Dataset.from_dict(coreset_small_train_t.iloc[train_index])
         elif run_name == "coreset-big":
             train_t = Dataset.from_dict(coreset_big_train_t.iloc[train_index])
+        elif run_name == "coreset-small-train":
+            train_t = Dataset.from_dict(coreset_small_train_set_t.iloc[train_index])
+        elif run_name == "coreset-big-train":
+            train_t = Dataset.from_dict(coreset_big_train_set_t.iloc[train_index])
         elif run_name == "anno-lexical":
             train_t = Dataset.from_pandas(anno_lex_train_t)
         else:
@@ -181,6 +218,8 @@ def run_cv(run_name):
 
 # %%
 run_cv(run_name="baseline")
-run_cv(run_name="anno-lexical")
 run_cv(run_name="coreset-small")
 run_cv(run_name="coreset-big")
+run_cv(run_name="coreset-small-train")
+run_cv(run_name="coreset-big-train")
+run_cv(run_name="anno-lexical")
