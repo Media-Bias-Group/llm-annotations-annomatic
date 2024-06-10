@@ -15,7 +15,8 @@ annomatic-dataset/data/annotation/*
 annomatic-sentence-pool/data/raw/adfontes_snapshot.parquet
 annomatic-sentence-pool/data/raw/all_sides_snapshot_15_11_2023.html
 models_local/*
-#checklist/data/out*
+ablation_study/data/*
+checklist/data/out*
 # Distribution / packaging
 .Python
 build/
