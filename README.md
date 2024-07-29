@@ -31,7 +31,7 @@ Ensure you have the following installed:
 #### Installation
 Install the required Python packages by navigating to the repository's root directory and running:
 
-````pip install -r requirements.txt```
+```pip install -r requirements.txt```
 
 #### Usage
 Each directory contains its own set of instructions in the form of a README.md file, detailing how to use the scripts and tools provided. It is recommended to follow these instructions sequentially, starting with annomatic-sentence-pool, followed by annomatic-dataset, and then annomatic-benchmark for benchmarking results.
@@ -42,10 +42,5 @@ Contributions to this project are welcome. Please fork the repository, make your
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Authors
-- Christoph Mandl
-- Tomáš Horych
-## Acknowledgements
- todo
 
 For more detailed instructions on how to contribute to the project, set up environments, or run tests, refer to the README files within each directory
