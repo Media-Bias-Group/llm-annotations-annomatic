@@ -101,7 +101,7 @@ def wandb_run():
         @functools.wraps(func)
         def wrapper(run_name, *args, **kwargs):
             wandb.init(
-                entity="media-bias-group",
+                entity="anonymous",
                 project=PROJECT_NAME,
                 name=run_name,
             )

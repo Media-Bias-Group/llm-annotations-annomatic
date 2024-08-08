@@ -93,7 +93,7 @@ anno_lex_dev_t = Dataset.from_dict(
 
 # %%
 print("Initializing wandb.")
-wandb.init(entity="media-bias-group", project="annomatic-training")
+wandb.init(entity="anonymous", project="annomatic-training")
 # set_random_seed()
 
 training_args = TrainingArguments(

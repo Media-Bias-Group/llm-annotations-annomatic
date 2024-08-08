@@ -28,7 +28,7 @@ if __name__ == "__main__":
     load_dotenv()
     wandb.login(key=os.environ["WANDB_KEY"])
 
-    project_name = "media-bias-group/annomatic_dataset"
+    project_name = "anonymous"
 
     # Download the data
     download_data(project_name, "MA", "data/annotation/ma")
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     download_data(project_name, "rest1_2", "data/annotation/rest_1/part_2")
 
     # download pool
-    wandb_run = "media-bias-group/annomatic_benchmark/uwli5rfj"
+    wandb_run = "anonymous"
     run = wandb.Api().run(wandb_run)
     csv_name_pool = "final_pool_with_explanations.csv"
     pool_raw = [x for x in run.files() if x.name == csv_name_pool][0]

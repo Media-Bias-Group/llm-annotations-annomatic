@@ -48,7 +48,7 @@ babe = (
     .drop("_merge", axis=1)
 )
 
-anno_lex = load_dataset("mediabiasgroup/anno-lexical")
+anno_lex = load_dataset("anonymous/anno-lexical")
 
 
 model = AutoModelForSequenceClassification.from_pretrained(

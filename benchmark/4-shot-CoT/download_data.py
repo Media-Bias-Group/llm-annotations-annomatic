@@ -10,7 +10,7 @@ if __name__ == "__main__":
     wandb.login(key=os.environ["WANDB_KEY"])
 
     # Specify the project name and tag
-    project_name = "media-bias-group/annomatic_benchmark"
+    project_name = "anonymous/annomatic_benchmark"
     tag = "4-shot CoT"
 
     # Get the runs
@@ -30,7 +30,7 @@ if __name__ == "__main__":
             csv_file.download(root="./data/", replace=True)
 
     # download the pool
-    # pool_path = "media-bias-group/annomatic_benchmark/6qxjmo5h"
+    # pool_path = "anonymous/annomatic_benchmark/6qxjmo5h"
     # run = wandb.Api().run(pool_path)
 
     # csv_name_raw_pool = "final_pool_with_explanation_processed.csv"

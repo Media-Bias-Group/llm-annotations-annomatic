@@ -31,7 +31,7 @@ device = (
 )
 
 # %% prepare model & data
-anno_lex = load_dataset("mediabiasgroup/anno-lexical")
+anno_lex = load_dataset("anonymous/anno-lexical")
 
 
 model = AutoModelForSequenceClassification.from_pretrained(
@@ -97,7 +97,7 @@ def train_wrapper():
     This function is passed as a callback to wandb.
     """
     wandb.init(
-        entity="media-bias-group",
+        entity="anonymous,
         project="annomatic_dataset_hyperparams",
     )
     set_random_seed()

@@ -34,8 +34,8 @@ device = (
 train = pd.read_parquet('ablation_study/data/anno-lexical-train-balanced.parquet')
 dev = pd.read_parquet('ablation_study/data/anno-lexical-dev-balanced.parquet')
 test = pd.read_parquet('annomatic-dataset/data/training/anno-lexical-test.parquet')
-babe_test = load_dataset("mediabiasgroup/BABE")["test"]
-basil_test = load_dataset("horychtom/experiments")["train"]
+babe_test = load_dataset("mediabiasgroup/BABE")["test"] # load public version of BABE dataset
+basil_test = load_dataset("horychtom/BASIL")["train"] # load public version of BASIL dataset
 
 # prep model
 model = AutoModelForSequenceClassification.from_pretrained(
@@ -128,7 +128,7 @@ basil_test_t = Dataset.from_dict(
 
 
 # %%
-wandb.init(entity="media-bias-group", project="ablation_study")
+wandb.init(entity="anonymous", project="ablation_study")
 set_random_seed()
 
 training_args = TrainingArguments(
@@ -170,7 +170,7 @@ trainer = Trainer(
 
 
 trainer.train()
-model.push_to_hub("mediabiasgroup/ablation-balanced")
+model.push_to_hub("anonymous")
 
 # test anno_lex
 test_dataloader_annolex = DataLoader(

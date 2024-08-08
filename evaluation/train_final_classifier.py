@@ -32,7 +32,7 @@ device = (
 )
 
 # %% prepare model & data
-anno_lex = load_dataset("mediabiasgroup/anno-lexical")
+anno_lex = load_dataset("anonymous/anno-lexical")
 
 
 model = AutoModelForSequenceClassification.from_pretrained(
@@ -92,7 +92,7 @@ anno_lex_test_t = Dataset.from_dict(
 
 
 # %%
-wandb.init(entity="media-bias-group", project="annomatic_dataset")
+wandb.init(entity="anonymous", project="annomatic_dataset")
 # set_random_seed()
 
 training_args = TrainingArguments(

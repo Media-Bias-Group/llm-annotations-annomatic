@@ -10,7 +10,7 @@ if __name__ == "__main__":
     wandb.login(key=os.environ["WANDB_KEY"])
 
     # Specify the project name and tag
-    project_name = "media-bias-group/annomatic_benchmark"
+    project_name = "anonymous/annomatic_benchmark"
     tag = "zero-shot CoT"
 
     # Get the runs

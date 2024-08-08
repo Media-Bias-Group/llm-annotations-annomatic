@@ -1,12 +1,12 @@
 from spurious_cues.explainer.lime_explainer import LimeExplainer
 
 # load model and dataset
-babe_base = "mediabiasgroup/babe-base-annomatic"
-magpie = "mediabiasgroup/magpie-annomatic"
-synth = "mediabiasgroup/roberta-anno-lexical-ft"
+babe_base = "anonymous/babe-base-annomatic"
+magpie = "anonymous/magpie-annomatic"
+synth = "anonymous/roberta-anno-lexical-ft"
 
 # dataset = "mediabiasgroup/BABE"
-dataset = "horychtom/experiments"
+dataset = "horychtom/BASIL" # public version of BASIL dataset
 
 
 # explain feature attributions

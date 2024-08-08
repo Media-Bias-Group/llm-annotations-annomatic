@@ -3,9 +3,9 @@ from checklist.INV import LocationsTest, PrejudiceTest, PronounsTest
 from checklist.MFT import FactualTest
 
 model_list = [
-    "mediabiasgroup/babe-base-annomatic",
-    "mediabiasgroup/magpie-annomatic",
-    "mediabiasgroup/roberta-anno-lexical-ft",
+    "anonymous/babe-base-annomatic",
+    "anonymous/magpie-annomatic",
+    "anonymous/roberta-anno-lexical-ft",
 ]
 
 test_list = [
