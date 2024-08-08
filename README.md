@@ -20,7 +20,7 @@ A specialized directory for reannotating a subset of the BABE dataset. It focuse
 To get started with this project, clone the repository to your local machine using the following command:
 
 ```
-git clone https://github.com/yourusername/llm-annotations-media-bias.git
+git clone https://github.com/anonymized-user/llm-annotations-media-bias.git
 ```
 #### Prerequisites
 Ensure you have the following installed:
