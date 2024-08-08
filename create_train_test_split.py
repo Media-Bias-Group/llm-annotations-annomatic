@@ -29,8 +29,8 @@ ds = DatasetDict(
 
 # v3
 # ds.push_to_hub(
-#     "mediabiasgroup/BABE",
+#     "anonymous/version",
 #     commit_message="Upload version of BABE v2 split intro train and test",
 #     commit_description="This version is the same as version v2, just split into train and test splits. The dev split is left for the user to choose.",
 # )
-# huggingface_hub.create_tag("mediabiasgroup/BABE", tag="v3", repo_type="dataset")
+# huggingface_hub.create_tag("anonymous/BABE", tag="v3", repo_type="dataset")
