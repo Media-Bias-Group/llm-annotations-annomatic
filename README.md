@@ -1,6 +1,15 @@
 # The Promises and Pitfalls of LLM Annotations: A Case Study on Media Bias Detection
 This repository hosts the research project "The Promises and Pitfalls of LLM Annotations," which focuses on a case study regarding media bias detection using Large Language Models (LLMs). The project explores how LLMs can be utilized to detect bias in media content and the inherent challenges and opportunities in their annotations.
+---
+Links to all other published resources: 
+- The **Annomatic** python package: [https://github.com/Media-Bias-Group/annomatic](https://github.com/Media-Bias-Group/annomatic)
+- The large-scale lexical bias dataset **anno-lexical**: [https://huggingface.co/datasets/mediabiasgroup/anno-lexical](https://huggingface.co/datasets/mediabiasgroup/anno-lexical)
+- The **SA-FT** classifier trained on synthetic bias annotations: [https://huggingface.co/mediabiasgroup/roberta-anno-lexical-ft](https://huggingface.co/mediabiasgroup/roberta-anno-lexical-ft)
+- The **HA-FT** classifier trained on human bias annotations: [https://huggingface.co/mediabiasgroup/roberta-babe-ft](https://huggingface.co/mediabiasgroup/roberta-babe-ft)
 
+
+
+---
 ## Project Structure
 The repository is divided into four main directories, each serving a distinct role in the research project:
 
