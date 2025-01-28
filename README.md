@@ -20,7 +20,7 @@ A specialized directory for reannotating a subset of the BABE dataset. It focuse
 To get started with this project, clone the repository to your local machine using the following command:
 
 ```
-git clone https://github.com/yourusername/llm-annotations-media-bias.git
+git clone git@github.com:Media-Bias-Group/llm-annotations-annomatic.git
 ```
 #### Prerequisites
 Ensure you have the following installed:
@@ -31,7 +31,7 @@ Ensure you have the following installed:
 #### Installation
 Install the required Python packages by navigating to the repository's root directory and running:
 
-````pip install -r requirements.txt```
+```pip install -r requirements.txt```
 
 #### Usage
 Each directory contains its own set of instructions in the form of a README.md file, detailing how to use the scripts and tools provided. It is recommended to follow these instructions sequentially, starting with annomatic-sentence-pool, followed by annomatic-dataset, and then annomatic-benchmark for benchmarking results.
