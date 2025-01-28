@@ -1,5 +1,5 @@
 # The Promises and Pitfalls of LLM Annotations: A Case Study on Media Bias Detection
-This repository hosts the research project "The Promises and Pitfalls of LLM Annotations," which focuses on a case study regarding media bias detection using Large Language Models (LLMs). The project explores how LLMs can be utilized to detect bias in media content and the inherent challenges and opportunities in their annotations.
+This repository hosts the research project "The Promises and Pitfalls of LLM Annotations,", accepted at NAACL 2025, which focuses on a case study regarding media bias detection using Large Language Models (LLMs). The project explores how LLMs can be utilized to detect bias in media content and the inherent challenges and opportunities in their annotations.
 ---
 Links to all other published resources: 
 - The **Annomatic** python package: [https://github.com/Media-Bias-Group/annomatic](https://github.com/Media-Bias-Group/annomatic)
